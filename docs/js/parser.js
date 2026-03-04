@@ -8,7 +8,7 @@ const Parser = (() => {
   const YEAR_LABELS = ["Year 1", "Year 2", "Year 3", "Year 4", "Year 5"];
 
   function parse(data) {
-    const wb = XLSX.read(data, { type: "array", cellFormula: true, cellNF: true });
+    const wb = XLSX.read(data, { type: "array", cellFormula: true, cellNF: true, sheetStubs: true });
     const setup = parseSetup(wb);
     const activeSections = parseChecklist(wb);
     const sectionData = parseSectorData(wb, setup.businessType, activeSections);
@@ -113,7 +113,7 @@ const Parser = (() => {
       for (let c = 1; c <= 5; c++) {
         const addr = XLSX.utils.encode_cell({ r, c });
         const cell = ws[addr];
-        if (cell && typeof cell.v === "number") {
+        if (cell && typeof cell.v === "number" && !cell.f) {
           cellCache[addr] = cell.v;
         }
       }
@@ -148,13 +148,7 @@ const Parser = (() => {
             continue;
           }
 
-          // Has a cached numeric value — use it
-          if (typeof cell.v === "number") {
-            values.push(cell.v);
-            continue;
-          }
-
-          // Has a formula but no cached value — try to evaluate
+          // Has a formula — always evaluate (openpyxl doesn't cache values)
           if (cell.f) {
             const evaluated = evaluateFormula(cell.f, cellCache);
             if (evaluated !== null) {
@@ -163,6 +157,12 @@ const Parser = (() => {
               cellCache[addr] = evaluated;
               continue;
             }
+          }
+
+          // Has a cached numeric value (input cell, no formula)
+          if (typeof cell.v === "number") {
+            values.push(cell.v);
+            continue;
           }
 
           // Fallback: try parsing

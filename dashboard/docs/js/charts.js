@@ -81,10 +81,11 @@ const Charts = (() => {
       plugins: {
         legend: {
           position: "top", align: "start",
+          maxLines: 2,
           labels: {
             color: "#9898A0",
-            font: { family: "'DM Sans'", size: 12, weight: "500" },
-            boxWidth: 12, boxHeight: 12, borderRadius: 3, useBorderRadius: true, padding: 16,
+            font: { family: "'DM Sans'", size: 11, weight: "500" },
+            boxWidth: 10, boxHeight: 10, borderRadius: 3, useBorderRadius: true, padding: 10,
           }
         },
         tooltip: {
