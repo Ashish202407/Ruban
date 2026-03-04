@@ -79,15 +79,7 @@ const Charts = (() => {
       devicePixelRatio: sharpDPR(),
       layout: { padding: { top: 8, bottom: 4, left: 4, right: 4 } },
       plugins: {
-        legend: {
-          position: "top", align: "start",
-          maxLines: 2,
-          labels: {
-            color: "#9898A0",
-            font: { family: "'DM Sans'", size: 11, weight: "500" },
-            boxWidth: 10, boxHeight: 10, borderRadius: 3, useBorderRadius: true, padding: 10,
-          }
-        },
+        legend: { display: false },
         tooltip: {
           backgroundColor: "#1C1C20", titleColor: "#E8E8EC", bodyColor: "#9898A0",
           borderColor: "#2A2A30", borderWidth: 1,
@@ -131,7 +123,15 @@ const Charts = (() => {
     if (chartType === "doughnut") {
       delete options.scales;
       options.cutout = "60%";
-      options.plugins.legend.position = "right";
+      // Re-enable built-in legend for doughnut since there's no y-axis to collide with
+      options.plugins.legend = {
+        display: true, position: "right",
+        labels: {
+          color: "#9898A0",
+          font: { family: "'DM Sans'", size: 11, weight: "500" },
+          boxWidth: 10, boxHeight: 10, borderRadius: 3, useBorderRadius: true, padding: 10,
+        }
+      };
     }
 
     return new Chart(ctx, { type: chartType, data: { labels, datasets: chartDatasets }, options });

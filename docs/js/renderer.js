@@ -141,14 +141,6 @@ const Renderer = (() => {
     titleEl.textContent = config.title;
     card.appendChild(titleEl);
 
-    // Chart
-    const chartWrap = document.createElement("div");
-    chartWrap.className = "chart-wrap";
-    const canvas = document.createElement("canvas");
-    canvas.id = `chart-${sectionId}`;
-    chartWrap.appendChild(canvas);
-    card.appendChild(chartWrap);
-
     // Build datasets
     const datasets = [];
     for (const rowLabel of (config.chartRows || [])) {
@@ -157,6 +149,28 @@ const Renderer = (() => {
         datasets.push({ label: row.label, values: [...row.values] });
       }
     }
+
+    // HTML legend (outside canvas — no overlap with y-axis)
+    if (datasets.length > 0 && config.chartType !== "pie") {
+      const legend = document.createElement("div");
+      legend.className = "chart-legend";
+      datasets.forEach((ds, i) => {
+        const item = document.createElement("span");
+        item.className = "chart-legend-item";
+        const color = Charts.PALETTE[i % Charts.PALETTE.length];
+        item.innerHTML = `<span class="chart-legend-dot" style="background:${color}"></span>${esc(ds.label)}`;
+        legend.appendChild(item);
+      });
+      card.appendChild(legend);
+    }
+
+    // Chart
+    const chartWrap = document.createElement("div");
+    chartWrap.className = "chart-wrap";
+    const canvas = document.createElement("canvas");
+    canvas.id = `chart-${sectionId}`;
+    chartWrap.appendChild(canvas);
+    card.appendChild(chartWrap);
 
     if (datasets.length > 0) {
       const chart = Charts.create(canvas, config.chartType, Parser.YEAR_LABELS, datasets, currencySymbol, config.yFormat || "currency");
