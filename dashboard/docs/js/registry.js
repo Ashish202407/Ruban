@@ -1,6 +1,9 @@
 /**
  * Ruban Section Registry
  * Maps 29 section IDs → chart types, KPI rules, display config
+ *
+ * yFormat: "currency" (default) | "percent" | "number" | "ratio"
+ *   Controls how the chart y-axis is formatted
  */
 const REGISTRY = {
   // ─── AI-SaaS ───
@@ -8,6 +11,7 @@ const REGISTRY = {
     title: "MRR & ARR Progression",
     sector: "AI-SaaS",
     chartType: "line",
+    yFormat: "currency",
     kpis: [
       { label: "Ending MRR", row: "Ending MRR", format: "currency" },
       { label: "ARR", row: "ARR", format: "currency" },
@@ -20,6 +24,7 @@ const REGISTRY = {
     title: "Revenue by Plan/Tier",
     sector: "AI-SaaS",
     chartType: "stacked_bar",
+    yFormat: "currency",
     kpis: [
       { label: "Total Revenue", row: "Total Revenue", format: "currency" },
       { label: "Revenue Growth", row: "Total Revenue", format: "growth" }
@@ -31,18 +36,19 @@ const REGISTRY = {
     title: "Churn & Retention",
     sector: "AI-SaaS",
     chartType: "line",
+    yFormat: "number",
     kpis: [
       { label: "Logo Churn %", row: "Logo Churn %", format: "percent" },
       { label: "Ending Customers", row: "Ending Customers", format: "number" }
     ],
     chartRows: ["Starting Customers", "Ending Customers"],
-    chartRowsSecondary: ["Logo Churn %"],
     tableRows: "all"
   },
   saas_ndr: {
     title: "Net Dollar Retention",
     sector: "AI-SaaS",
     chartType: "bar",
+    yFormat: "currency",
     kpis: [
       { label: "NDR %", row: "NDR %", format: "percent" },
       { label: "Ending ARR", row: "Ending ARR", format: "currency" }
@@ -54,6 +60,7 @@ const REGISTRY = {
     title: "CAC & LTV",
     sector: "AI-SaaS",
     chartType: "bar",
+    yFormat: "currency",
     kpis: [
       { label: "CAC", row: "CAC", format: "currency" },
       { label: "LTV", row: "LTV", format: "currency" },
@@ -67,6 +74,7 @@ const REGISTRY = {
     title: "Rule of 40 & Burn Multiple",
     sector: "AI-SaaS",
     chartType: "bar",
+    yFormat: "percent",
     kpis: [
       { label: "Rule of 40", row: "Rule of 40 Score", format: "percent" },
       { label: "Burn Multiple", row: "Burn Multiple", format: "ratio" }
@@ -78,6 +86,7 @@ const REGISTRY = {
     title: "Sales Efficiency",
     sector: "AI-SaaS",
     chartType: "bar",
+    yFormat: "currency",
     kpis: [
       { label: "Magic Number", row: "Magic Number", format: "ratio" }
     ],
@@ -88,6 +97,7 @@ const REGISTRY = {
     title: "P&L Summary",
     sector: "AI-SaaS",
     chartType: "bar",
+    yFormat: "currency",
     kpis: [
       { label: "Revenue", row: "Revenue", format: "currency" },
       { label: "Gross Profit", row: "Gross Profit", format: "currency" },
@@ -101,6 +111,7 @@ const REGISTRY = {
     title: "Cash & Runway",
     sector: "AI-SaaS",
     chartType: "bar",
+    yFormat: "currency",
     kpis: [
       { label: "Closing Cash", row: "Closing Cash", format: "currency" },
       { label: "Runway", row: "Runway (months)", format: "months" }
@@ -112,6 +123,7 @@ const REGISTRY = {
     title: "Fundraising & Cap Table",
     sector: "AI-SaaS",
     chartType: "stacked_bar",
+    yFormat: "percent_whole",
     kpis: [
       { label: "Amount Raised", row: "Amount Raised", format: "currency" }
     ],
@@ -124,6 +136,7 @@ const REGISTRY = {
     title: "GMV & AOV",
     sector: "D2C",
     chartType: "stacked_bar",
+    yFormat: "currency",
     kpis: [
       { label: "Total GMV", row: "Total GMV", format: "currency" },
       { label: "Blended AOV", row: "Blended AOV", format: "currency" }
@@ -135,6 +148,7 @@ const REGISTRY = {
     title: "Channel Revenue Breakup",
     sector: "D2C",
     chartType: "stacked_bar",
+    yFormat: "currency",
     kpis: [
       { label: "Total Net Revenue", row: "Total Net Revenue", format: "currency" },
       { label: "Revenue Growth", row: "Total Net Revenue", format: "growth" }
@@ -146,6 +160,7 @@ const REGISTRY = {
     title: "Return Rates & Net Revenue",
     sector: "D2C",
     chartType: "bar",
+    yFormat: "currency",
     kpis: [],
     chartRows: ["Website — Net Revenue", "Retail — Net Revenue", "Marketplace — Net Revenue"],
     tableRows: "all"
@@ -154,6 +169,7 @@ const REGISTRY = {
     title: "Customer Funnel",
     sector: "D2C",
     chartType: "bar",
+    yFormat: "number",
     kpis: [
       { label: "Visitors", row: "Website Visitors", format: "number" },
       { label: "Customers", row: "Customers Converted", format: "number" },
@@ -166,6 +182,7 @@ const REGISTRY = {
     title: "Cohort Retention & Churn",
     sector: "D2C",
     chartType: "line",
+    yFormat: "percent",
     kpis: [
       { label: "Blended Churn", row: "Blended Churn Rate", format: "percent" },
       { label: "Repeat Rate", row: "Repeat Purchase Rate", format: "percent" }
@@ -177,6 +194,7 @@ const REGISTRY = {
     title: "Unit Economics",
     sector: "D2C",
     chartType: "bar",
+    yFormat: "currency",
     kpis: [
       { label: "CAC", row: "CAC (Customer Acquisition Cost)", format: "currency" },
       { label: "LTV", row: "LTV (Lifetime Value)", format: "currency" },
@@ -189,6 +207,7 @@ const REGISTRY = {
     title: "P&L Summary",
     sector: "D2C",
     chartType: "bar",
+    yFormat: "currency",
     kpis: [
       { label: "Net Revenue", row: "Net Revenue", format: "currency" },
       { label: "Gross Profit", row: "Gross Profit", format: "currency" },
@@ -202,6 +221,7 @@ const REGISTRY = {
     title: "Balance Sheet",
     sector: "D2C",
     chartType: "stacked_bar",
+    yFormat: "currency",
     kpis: [
       { label: "Total Assets", row: "Total Assets", format: "currency" },
       { label: "Total Equity", row: "Total Equity", format: "currency" }
@@ -213,6 +233,7 @@ const REGISTRY = {
     title: "Cash Flow",
     sector: "D2C",
     chartType: "bar",
+    yFormat: "currency",
     kpis: [
       { label: "CF from Ops", row: "CF from Operations", format: "currency" },
       { label: "Closing Cash", row: "Closing Cash Balance", format: "currency" }
@@ -224,6 +245,7 @@ const REGISTRY = {
     title: "Fundraising & Cap Table",
     sector: "D2C",
     chartType: "stacked_bar",
+    yFormat: "percent_whole",
     kpis: [
       { label: "Amount Raised", row: "Amount Raised", format: "currency" }
     ],
@@ -236,19 +258,20 @@ const REGISTRY = {
     title: "Bed Occupancy & Utilization",
     sector: "Healthcare",
     chartType: "bar",
+    yFormat: "number",
     kpis: [
       { label: "Occupancy %", row: "Occupancy Rate %", format: "percent" },
       { label: "Total Beds", row: "Total Beds Available", format: "number" },
       { label: "Discharges", row: "Total Discharges", format: "number" }
     ],
     chartRows: ["Total Beds Available", "Total Discharges"],
-    chartRowsSecondary: ["Occupancy Rate %"],
     tableRows: "all"
   },
   hc_arpob: {
     title: "ARPOB & Revenue per Bed",
     sector: "Healthcare",
     chartType: "bar",
+    yFormat: "currency",
     kpis: [
       { label: "ARPOB", row: "ARPOB (Avg Rev per Occupied Bed)", format: "currency" },
       { label: "Rev/Bed", row: "Revenue per Available Bed", format: "currency" }
@@ -260,6 +283,7 @@ const REGISTRY = {
     title: "Department Revenue",
     sector: "Healthcare",
     chartType: "stacked_bar",
+    yFormat: "currency",
     kpis: [
       { label: "Total Revenue", row: "Total Revenue", format: "currency" },
       { label: "Revenue Growth", row: "Total Revenue", format: "growth" }
@@ -271,6 +295,7 @@ const REGISTRY = {
     title: "Payer Mix",
     sector: "Healthcare",
     chartType: "stacked_bar",
+    yFormat: "currency",
     kpis: [
       { label: "Total Revenue", row: "Total Revenue", format: "currency" }
     ],
@@ -281,6 +306,7 @@ const REGISTRY = {
     title: "OPD & IPD Volumes",
     sector: "Healthcare",
     chartType: "bar",
+    yFormat: "number",
     kpis: [
       { label: "Annual OPD", row: "Annual OPD Visits", format: "number" },
       { label: "IPD Admissions", row: "IPD Admissions", format: "number" },
@@ -293,6 +319,7 @@ const REGISTRY = {
     title: "Cost per Bed Day",
     sector: "Healthcare",
     chartType: "stacked_bar",
+    yFormat: "currency",
     kpis: [
       { label: "Cost/Bed Day", row: "Cost per Occupied Bed Day", format: "currency" },
       { label: "Contribution", row: "Contribution", format: "currency" }
@@ -304,6 +331,7 @@ const REGISTRY = {
     title: "P&L Summary",
     sector: "Healthcare",
     chartType: "bar",
+    yFormat: "currency",
     kpis: [
       { label: "Revenue", row: "Total Revenue", format: "currency" },
       { label: "Gross Profit", row: "Gross Profit", format: "currency" },
@@ -317,6 +345,7 @@ const REGISTRY = {
     title: "Cash Flow & Capex",
     sector: "Healthcare",
     chartType: "bar",
+    yFormat: "currency",
     kpis: [
       { label: "CF from Ops", row: "CF from Operations", format: "currency" },
       { label: "Closing Cash", row: "Closing Cash Balance", format: "currency" }
@@ -328,6 +357,7 @@ const REGISTRY = {
     title: "Fundraising & Cap Table",
     sector: "Healthcare",
     chartType: "stacked_bar",
+    yFormat: "percent_whole",
     kpis: [
       { label: "Amount Raised", row: "Amount Raised", format: "currency" }
     ],

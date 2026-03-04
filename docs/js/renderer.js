@@ -159,7 +159,7 @@ const Renderer = (() => {
     }
 
     if (datasets.length > 0) {
-      const chart = Charts.create(canvas, config.chartType, Parser.YEAR_LABELS, datasets, currencySymbol);
+      const chart = Charts.create(canvas, config.chartType, Parser.YEAR_LABELS, datasets, currencySymbol, config.yFormat || "currency");
       chartInstances.push(chart);
     }
 

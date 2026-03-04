@@ -2,20 +2,13 @@
  * Ruban Charts — Chart.js factory, dark theme, razor-sharp at any zoom
  */
 const Charts = (() => {
-  // Warm-accent palette for dark backgrounds
   const PALETTE = [
-    "#C8A96E",  // gold
-    "#6EC8A9",  // teal
-    "#8B9DC3",  // slate blue
-    "#D4896E",  // terracotta
-    "#A78BDB",  // lavender
-    "#6EB5C8",  // cyan
-    "#C87D9A",  // rose
-    "#8BC86E",  // sage
+    "#C8A96E", "#6EC8A9", "#8B9DC3", "#D4896E",
+    "#A78BDB", "#6EB5C8", "#C87D9A", "#8BC86E",
   ];
 
   const PALETTE_ALPHA = PALETTE.map(c => hexToRgba(c, 0.7));
-  const PALETTE_BG = PALETTE.map(c => hexToRgba(c, 0.15));
+  const PALETTE_BG    = PALETTE.map(c => hexToRgba(c, 0.15));
 
   function hexToRgba(hex, a) {
     const r = parseInt(hex.slice(1, 3), 16);
@@ -24,12 +17,10 @@ const Charts = (() => {
     return `rgba(${r},${g},${b},${a})`;
   }
 
-  /** Get sharp DPR — always at least 3x so zoom never blurs */
   function sharpDPR() {
     return Math.max(window.devicePixelRatio || 1, 3);
   }
 
-  // Global Chart.js defaults for dark theme
   if (typeof Chart !== 'undefined') {
     Chart.defaults.devicePixelRatio = sharpDPR();
     Chart.defaults.font.family = "'DM Sans', system-ui, sans-serif";
@@ -37,9 +28,14 @@ const Charts = (() => {
   }
 
   /**
-   * Create a chart — renders at 3x minimum so it stays sharp at any browser zoom
+   * @param {HTMLCanvasElement} canvas
+   * @param {string} type - "line" | "bar" | "stacked_bar" | "pie"
+   * @param {string[]} labels
+   * @param {Object[]} datasets - [{label, values}]
+   * @param {string} currencySymbol
+   * @param {string} yFormat - "currency" | "percent" | "percent_whole" | "number" | "ratio"
    */
-  function create(canvas, type, labels, datasets, currencySymbol) {
+  function create(canvas, type, labels, datasets, currencySymbol, yFormat) {
     const ctx = canvas.getContext("2d");
     const chartType = type === "stacked_bar" ? "bar" : (type === "pie" ? "doughnut" : type);
     const isStacked = type === "stacked_bar";
@@ -51,81 +47,56 @@ const Charts = (() => {
 
       if (chartType === "line") {
         return {
-          label: ds.label,
-          data: ds.values,
-          borderColor: color,
-          backgroundColor: bg,
-          borderWidth: 2.5,
-          tension: 0.35,
-          fill: true,
-          pointRadius: 5,
-          pointHoverRadius: 7,
-          pointBackgroundColor: color,
-          pointBorderColor: "#18181B",
-          pointBorderWidth: 2.5,
+          label: ds.label, data: ds.values,
+          borderColor: color, backgroundColor: bg,
+          borderWidth: 2.5, tension: 0.35, fill: true,
+          pointRadius: 5, pointHoverRadius: 7,
+          pointBackgroundColor: color, pointBorderColor: "#18181B", pointBorderWidth: 2.5,
         };
       }
-
       if (chartType === "doughnut") {
         return {
-          label: ds.label,
-          data: ds.values,
+          label: ds.label, data: ds.values,
           backgroundColor: datasets.map((_, j) => PALETTE_ALPHA[j % PALETTE_ALPHA.length]),
           borderColor: datasets.map((_, j) => PALETTE[j % PALETTE.length]),
-          borderWidth: 1.5,
-          hoverOffset: 6,
+          borderWidth: 1.5, hoverOffset: 6,
         };
       }
-
-      // bar
       return {
-        label: ds.label,
-        data: ds.values,
-        backgroundColor: alpha,
-        borderColor: color,
-        borderWidth: 1.5,
-        borderRadius: 5,
-        borderSkipped: false,
+        label: ds.label, data: ds.values,
+        backgroundColor: alpha, borderColor: color,
+        borderWidth: 1.5, borderRadius: 5, borderSkipped: false,
       };
     });
+
+    // Build y-axis tick formatter based on yFormat
+    const tickFormatter = buildTickFormatter(yFormat || "currency", currencySymbol);
+    const tooltipFormatter = buildTooltipFormatter(yFormat || "currency", currencySymbol);
 
     const options = {
       responsive: true,
       maintainAspectRatio: false,
       devicePixelRatio: sharpDPR(),
-      layout: {
-        padding: { top: 8, bottom: 4, left: 4, right: 4 }
-      },
+      layout: { padding: { top: 8, bottom: 4, left: 4, right: 4 } },
       plugins: {
         legend: {
-          position: "top",
-          align: "start",
+          position: "top", align: "start",
           labels: {
             color: "#9898A0",
             font: { family: "'DM Sans'", size: 12, weight: "500" },
-            boxWidth: 12,
-            boxHeight: 12,
-            borderRadius: 3,
-            useBorderRadius: true,
-            padding: 16,
+            boxWidth: 12, boxHeight: 12, borderRadius: 3, useBorderRadius: true, padding: 16,
           }
         },
         tooltip: {
-          backgroundColor: "#1C1C20",
-          titleColor: "#E8E8EC",
-          bodyColor: "#9898A0",
-          borderColor: "#2A2A30",
-          borderWidth: 1,
+          backgroundColor: "#1C1C20", titleColor: "#E8E8EC", bodyColor: "#9898A0",
+          borderColor: "#2A2A30", borderWidth: 1,
           titleFont: { family: "'DM Sans'", size: 13, weight: "600" },
           bodyFont: { family: "'JetBrains Mono'", size: 12 },
-          padding: 14,
-          cornerRadius: 8,
-          displayColors: true,
-          boxPadding: 5,
+          padding: 14, cornerRadius: 8, displayColors: true, boxPadding: 5,
           callbacks: {
             label: function(context) {
-              let val = context.parsed.y !== undefined ? context.parsed.y : context.parsed;
-              return ` ${context.dataset.label}: ${formatTick(val, currencySymbol)}`;
+              const val = context.parsed.y !== undefined ? context.parsed.y : context.parsed;
+              return ` ${context.dataset.label}: ${tooltipFormatter(val)}`;
             }
           }
         }
@@ -134,37 +105,21 @@ const Charts = (() => {
         x: {
           grid: { display: false },
           border: { color: "#2A2A30" },
-          ticks: {
-            color: "#68686F",
-            font: { family: "'DM Sans'", size: 12, weight: "500" },
-            padding: 8
-          }
+          ticks: { color: "#68686F", font: { family: "'DM Sans'", size: 12, weight: "500" }, padding: 8 }
         },
         y: {
-          grid: {
-            color: "rgba(42,42,48,0.5)",
-            lineWidth: 0.5,
-          },
+          grid: { color: "rgba(42,42,48,0.5)", lineWidth: 0.5 },
           border: { display: false },
           ticks: {
             color: "#68686F",
             font: { family: "'JetBrains Mono'", size: 11 },
-            padding: 10,
-            maxTicksLimit: 6,
-            callback: function(value) {
-              return formatTick(value, currencySymbol);
-            }
+            padding: 10, maxTicksLimit: 6,
+            callback: function(value) { return tickFormatter(value); }
           }
         }
       },
-      interaction: {
-        mode: "index",
-        intersect: false,
-      },
-      animation: {
-        duration: 700,
-        easing: "easeOutQuart",
-      }
+      interaction: { mode: "index", intersect: false },
+      animation: { duration: 700, easing: "easeOutQuart" }
     };
 
     if (isStacked) {
@@ -178,26 +133,80 @@ const Charts = (() => {
       options.plugins.legend.position = "right";
     }
 
-    return new Chart(ctx, {
-      type: chartType,
-      data: { labels, datasets: chartDatasets },
-      options
-    });
+    return new Chart(ctx, { type: chartType, data: { labels, datasets: chartDatasets }, options });
   }
 
-  function formatTick(value, sym) {
-    const abs = Math.abs(value);
-    const sign = value < 0 ? "-" : "";
-    if (abs >= 10000000) return sign + sym + (abs / 10000000).toFixed(1) + "Cr";
-    if (abs >= 100000) return sign + sym + (abs / 100000).toFixed(1) + "L";
-    if (abs >= 1000) return sign + sym + (abs / 1000).toFixed(1) + "K";
-    if (abs === 0) return sym + "0";
-    return sign + sym + abs.toFixed(abs < 10 ? 1 : 0);
+  /**
+   * Build a tick formatter for the y-axis
+   */
+  function buildTickFormatter(yFormat, sym) {
+    if (yFormat === "percent") {
+      return (value) => {
+        return (value * 100).toFixed(0) + "%";
+      };
+    }
+    if (yFormat === "percent_whole") {
+      // Values are already whole numbers (e.g. 80 for 80%)
+      return (value) => value.toFixed(0) + "%";
+    }
+    if (yFormat === "number") {
+      return (value) => {
+        const abs = Math.abs(value);
+        const sign = value < 0 ? "-" : "";
+        if (abs >= 1000000) return sign + (abs / 1000000).toFixed(1) + "M";
+        if (abs >= 1000) return sign + (abs / 1000).toFixed(1) + "K";
+        return sign + abs.toFixed(0);
+      };
+    }
+    if (yFormat === "ratio") {
+      return (value) => value.toFixed(1) + "x";
+    }
+    // Default: currency
+    return (value) => {
+      const abs = Math.abs(value);
+      const sign = value < 0 ? "-" : "";
+      if (abs >= 10000000) return sign + sym + (abs / 10000000).toFixed(1) + "Cr";
+      if (abs >= 100000) return sign + sym + (abs / 100000).toFixed(1) + "L";
+      if (abs >= 1000) return sign + sym + (abs / 1000).toFixed(1) + "K";
+      if (abs === 0) return sym + "0";
+      return sign + sym + abs.toFixed(abs < 10 ? 1 : 0);
+    };
   }
 
-  function destroy(chart) {
-    if (chart) chart.destroy();
+  /**
+   * Build a tooltip formatter
+   */
+  function buildTooltipFormatter(yFormat, sym) {
+    if (yFormat === "percent") {
+      return (value) => (value * 100).toFixed(1) + "%";
+    }
+    if (yFormat === "percent_whole") {
+      return (value) => value.toFixed(1) + "%";
+    }
+    if (yFormat === "number") {
+      return (value) => {
+        const abs = Math.abs(value);
+        const sign = value < 0 ? "-" : "";
+        if (abs >= 1000000) return sign + (abs / 1000000).toFixed(2) + "M";
+        if (abs >= 1000) return sign + (abs / 1000).toFixed(1) + "K";
+        return sign + abs.toFixed(0);
+      };
+    }
+    if (yFormat === "ratio") {
+      return (value) => value.toFixed(2) + "x";
+    }
+    return (value) => {
+      const abs = Math.abs(value);
+      const sign = value < 0 ? "-" : "";
+      if (abs >= 10000000) return sign + sym + (abs / 10000000).toFixed(2) + " Cr";
+      if (abs >= 100000) return sign + sym + (abs / 100000).toFixed(2) + " L";
+      if (abs >= 1000) return sign + sym + (abs / 1000).toFixed(1) + "K";
+      if (abs === 0) return sym + "0";
+      return sign + sym + abs.toFixed(2);
+    };
   }
+
+  function destroy(chart) { if (chart) chart.destroy(); }
 
   return { create, destroy, PALETTE, PALETTE_ALPHA, sharpDPR };
 })();
