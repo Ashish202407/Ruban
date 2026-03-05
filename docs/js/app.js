@@ -3,6 +3,8 @@
  * File upload → parse → render
  */
 (function () {
+  Theme.init();
+
   const dropZone = document.getElementById("drop-zone");
   const fileInput = document.getElementById("file-input");
   const uploadScreen = document.getElementById("upload-screen");
@@ -36,6 +38,7 @@
 
   // ─── Back button ───
   backBtn.addEventListener("click", () => {
+    Theme.stashParsedData(null);
     Renderer.cleanup();
     dashboardScreen.style.display = "none";
     uploadScreen.style.display = "flex";
@@ -75,6 +78,9 @@
 
         // Scroll to top
         window.scrollTo(0, 0);
+
+        // Stash parsed data for theme re-renders
+        Theme.stashParsedData(parsed);
 
         // Render
         Renderer.cleanup();

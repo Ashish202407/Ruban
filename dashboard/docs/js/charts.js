@@ -1,14 +1,7 @@
 /**
- * Ruban Charts — Chart.js factory, dark theme, razor-sharp at any zoom
+ * Ruban Charts — Chart.js factory, dynamic theme colors, razor-sharp at any zoom
  */
 const Charts = (() => {
-  const PALETTE = [
-    "#C8A96E", "#6EC8A9", "#8B9DC3", "#D4896E",
-    "#A78BDB", "#6EB5C8", "#C87D9A", "#8BC86E",
-  ];
-
-  const PALETTE_ALPHA = PALETTE.map(c => hexToRgba(c, 0.7));
-  const PALETTE_BG    = PALETTE.map(c => hexToRgba(c, 0.15));
 
   function hexToRgba(hex, a) {
     const r = parseInt(hex.slice(1, 3), 16);
@@ -40,10 +33,16 @@ const Charts = (() => {
     const chartType = type === "stacked_bar" ? "bar" : (type === "pie" ? "doughnut" : type);
     const isStacked = type === "stacked_bar";
 
+    // Dynamic palette and chart theme from Theme module
+    const palette = Theme.getPalette();
+    const paletteAlpha = palette.map(c => hexToRgba(c, 0.7));
+    const paletteBg = palette.map(c => hexToRgba(c, 0.15));
+    const ct = Theme.getChartTheme();
+
     const chartDatasets = datasets.map((ds, i) => {
-      const color = PALETTE[i % PALETTE.length];
-      const alpha = PALETTE_ALPHA[i % PALETTE_ALPHA.length];
-      const bg = PALETTE_BG[i % PALETTE_BG.length];
+      const color = palette[i % palette.length];
+      const alpha = paletteAlpha[i % paletteAlpha.length];
+      const bg = paletteBg[i % paletteBg.length];
 
       if (chartType === "line") {
         return {
@@ -51,14 +50,14 @@ const Charts = (() => {
           borderColor: color, backgroundColor: bg,
           borderWidth: 2.5, tension: 0.35, fill: true,
           pointRadius: 5, pointHoverRadius: 7,
-          pointBackgroundColor: color, pointBorderColor: "#18181B", pointBorderWidth: 2.5,
+          pointBackgroundColor: color, pointBorderColor: ct.pointBorder, pointBorderWidth: 2.5,
         };
       }
       if (chartType === "doughnut") {
         return {
           label: ds.label, data: ds.values,
-          backgroundColor: datasets.map((_, j) => PALETTE_ALPHA[j % PALETTE_ALPHA.length]),
-          borderColor: datasets.map((_, j) => PALETTE[j % PALETTE.length]),
+          backgroundColor: datasets.map((_, j) => paletteAlpha[j % paletteAlpha.length]),
+          borderColor: datasets.map((_, j) => palette[j % palette.length]),
           borderWidth: 1.5, hoverOffset: 6,
         };
       }
@@ -81,8 +80,8 @@ const Charts = (() => {
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: "#1C1C20", titleColor: "#E8E8EC", bodyColor: "#9898A0",
-          borderColor: "#2A2A30", borderWidth: 1,
+          backgroundColor: ct.tooltipBg, titleColor: ct.tooltipTitle, bodyColor: ct.tooltipBody,
+          borderColor: ct.tooltipBorder, borderWidth: 1,
           titleFont: { family: "'DM Sans'", size: 13, weight: "600" },
           bodyFont: { family: "'JetBrains Mono'", size: 12 },
           padding: 14, cornerRadius: 8, displayColors: true, boxPadding: 5,
@@ -97,14 +96,14 @@ const Charts = (() => {
       scales: {
         x: {
           grid: { display: false },
-          border: { color: "#2A2A30" },
-          ticks: { color: "#68686F", font: { family: "'DM Sans'", size: 12, weight: "500" }, padding: 8 }
+          border: { color: ct.borderColor },
+          ticks: { color: ct.tickColor, font: { family: "'DM Sans'", size: 12, weight: "500" }, padding: 8 }
         },
         y: {
-          grid: { color: "rgba(42,42,48,0.5)", lineWidth: 0.5 },
+          grid: { color: ct.gridColor, lineWidth: 0.5 },
           border: { display: false },
           ticks: {
-            color: "#68686F",
+            color: ct.tickColor,
             font: { family: "'JetBrains Mono'", size: 11 },
             padding: 10, maxTicksLimit: 6,
             callback: function(value) { return tickFormatter(value); }
@@ -123,11 +122,10 @@ const Charts = (() => {
     if (chartType === "doughnut") {
       delete options.scales;
       options.cutout = "60%";
-      // Re-enable built-in legend for doughnut since there's no y-axis to collide with
       options.plugins.legend = {
         display: true, position: "right",
         labels: {
-          color: "#9898A0",
+          color: ct.legendLabel,
           font: { family: "'DM Sans'", size: 11, weight: "500" },
           boxWidth: 10, boxHeight: 10, borderRadius: 3, useBorderRadius: true, padding: 10,
         }
@@ -147,7 +145,6 @@ const Charts = (() => {
       };
     }
     if (yFormat === "percent_whole") {
-      // Values are already whole numbers (e.g. 80 for 80%)
       return (value) => value.toFixed(0) + "%";
     }
     if (yFormat === "number") {
@@ -209,5 +206,9 @@ const Charts = (() => {
 
   function destroy(chart) { if (chart) chart.destroy(); }
 
-  return { create, destroy, PALETTE, PALETTE_ALPHA, sharpDPR };
+  return {
+    create, destroy, sharpDPR,
+    get PALETTE() { return Theme.getPalette(); },
+    get PALETTE_ALPHA() { return Theme.getPalette().map(c => hexToRgba(c, 0.7)); },
+  };
 })();
