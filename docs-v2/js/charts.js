@@ -386,7 +386,16 @@ const Charts = (() => {
       }
     }
 
-    drawGauge();
+    // Defer drawing until canvas has layout dimensions (card may not be in DOM yet)
+    function tryDraw() {
+      const rect = canvas.getBoundingClientRect();
+      if (rect.width === 0 || rect.height === 0) {
+        requestAnimationFrame(tryDraw);
+        return;
+      }
+      drawGauge();
+    }
+    requestAnimationFrame(tryDraw);
 
     // Return wrapper with destroy() for cleanup compatibility
     return {
