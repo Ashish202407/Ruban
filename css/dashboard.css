@@ -49,7 +49,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── Upload Screen ─── */
+/* ─── Upload Screen — Split-Screen Hero ─── */
 #upload-screen {
   display: flex;
   align-items: center;
@@ -59,58 +59,101 @@ body {
   background: var(--bg-void);
 }
 
-.upload-bg-grain {
+/* Animated grid background */
+.upload-grid-bg {
   position: fixed;
   inset: 0;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px;
   pointer-events: none;
   z-index: 0;
+  background-image:
+    linear-gradient(to right, rgba(200,169,110,0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(200,169,110,0.07) 1px, transparent 1px);
+  background-size: 56px 56px;
 }
 
-.upload-content {
+.upload-grid-bg::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 22%;
+  width: 500px;
+  height: 500px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,169,110,0.10) 0%, transparent 70%);
+  animation: glowPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes glowPulse {
+  from { transform: translate(-50%, -50%) scale(0.95); opacity: 1; }
+  to   { transform: translate(-50%, -50%) scale(1.05); opacity: 0.6; }
+}
+
+/* Left branding panel */
+.upload-left {
+  flex: 0 0 45%;
   position: relative;
   z-index: 1;
-  text-align: center;
-  padding: 32px;
-  width: 100%;
-  max-width: 480px;
-}
-
-.upload-brand {
-  margin-bottom: 40px;
-}
-
-.brand-mark {
-  display: inline-flex;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 14px;
-  background: var(--accent);
-  color: var(--bg-void);
-  font-family: var(--font);
-  font-weight: 700;
-  font-size: 24px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 40px rgba(200,169,110,0.15);
+  padding: 48px 40px 48px 64px;
 }
 
-.upload-brand h1 {
+.upload-logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 28px;
+  filter: drop-shadow(0 0 32px rgba(200,169,110,0.25));
+}
+
+.upload-heading {
   font-size: 36px;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.04em;
   line-height: 1;
+  margin-bottom: 10px;
 }
 
-.upload-brand p {
+.upload-tagline {
   color: var(--text-tertiary);
   font-size: 15px;
-  margin-top: 10px;
   font-weight: 400;
+  line-height: 1.5;
+  margin-bottom: 24px;
+}
+
+.upload-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.upload-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg-raised);
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Right upload panel */
+.upload-right {
+  flex: 0 0 55%;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 64px 48px 40px;
 }
 
 #drop-zone {
@@ -121,6 +164,9 @@ body {
   cursor: pointer;
   transition: all 0.35s var(--ease);
   position: relative;
+  max-width: 420px;
+  width: 100%;
+  text-align: center;
 }
 
 #drop-zone:hover,
@@ -191,6 +237,8 @@ body {
   border-radius: var(--radius-sm);
   font-size: 13px;
   text-align: center;
+  max-width: 420px;
+  width: 100%;
 }
 
 /* ─── Dashboard Nav ─── */
@@ -645,7 +693,15 @@ body {
   --red-dim: rgba(220,38,38,0.10);
 }
 
-[data-theme="light"] .upload-bg-grain { opacity: 0.015; }
+[data-theme="light"] .upload-grid-bg {
+  background-image:
+    linear-gradient(to right, rgba(0,0,0,0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px);
+}
+
+[data-theme="light"] .upload-grid-bg::after {
+  background: radial-gradient(circle, rgba(107,107,118,0.08) 0%, transparent 70%);
+}
 
 [data-theme="light"] .dash-nav {
   box-shadow: 0 1px 3px rgba(0,0,0,0.04);
@@ -659,8 +715,8 @@ body {
   box-shadow: 0 1px 2px rgba(0,0,0,0.03);
 }
 
-[data-theme="light"] .brand-mark {
-  box-shadow: 0 0 40px rgba(107,107,118,0.12);
+[data-theme="light"] .upload-logo {
+  filter: drop-shadow(0 0 32px rgba(107,107,118,0.15));
 }
 
 /* ─── Theme Controls (nav-center) ─── */
@@ -876,6 +932,38 @@ body {
 }
 
 @media (max-width: 768px) {
+  #upload-screen {
+    flex-direction: column;
+  }
+  .upload-left,
+  .upload-right {
+    flex: none;
+    width: 100%;
+    align-items: center;
+    text-align: center;
+  }
+  .upload-left {
+    padding: 40px 24px 24px;
+  }
+  .upload-right {
+    padding: 0 24px 40px;
+  }
+  .upload-logo {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 20px;
+  }
+  .upload-heading {
+    font-size: 28px;
+  }
+  .upload-pills {
+    justify-content: center;
+  }
+  .upload-grid-bg::after {
+    left: 50%;
+    width: 300px;
+    height: 300px;
+  }
   .chart-grid {
     grid-template-columns: 1fr;
   }
@@ -1091,7 +1179,7 @@ body {
   .table-toggle,
   .theme-toggle,
   .palette-picker,
-  .upload-bg-grain,
+  .upload-grid-bg,
   #upload-screen,
   #back-btn {
     display: none !important;
