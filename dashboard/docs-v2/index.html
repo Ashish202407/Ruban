@@ -14,20 +14,20 @@
 
   <!-- Upload Screen -->
   <div id="upload-screen">
-    <div class="upload-bg-grain"></div>
-    <div class="upload-content">
-      <div class="upload-brand">
-        <!-- Circular TVC Logo — 56px -->
-        <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 1.5rem;">
-          <circle cx="28" cy="28" r="27" stroke="var(--accent)" stroke-width="2" fill="var(--accent-dim)"/>
-          <text x="28" y="16" text-anchor="middle" fill="var(--accent)" font-family="'DM Sans', sans-serif" font-size="7" font-weight="700" letter-spacing="0.12em">THE</text>
-          <text x="28" y="33" text-anchor="middle" fill="var(--accent)" font-family="'DM Sans', sans-serif" font-size="18" font-weight="800" letter-spacing="0.04em">VC</text>
-          <text x="28" y="44" text-anchor="middle" fill="var(--accent)" font-family="'DM Sans', sans-serif" font-size="6.5" font-weight="700" letter-spacing="0.14em">CORNER</text>
-        </svg>
-        <h1>The VC Corner</h1>
-        <p>Upload your template. Get an investor-grade dashboard.</p>
-      </div>
+    <div class="upload-grid-bg"></div>
 
+    <div class="upload-left">
+      <img src="img/logo.png" alt="The VC Corner" class="upload-logo">
+      <h1 class="upload-heading">The VC Corner</h1>
+      <p class="upload-tagline">Upload your template.<br>Get an investor-grade dashboard.</p>
+      <div class="upload-pills">
+        <span class="upload-pill">58 Sections</span>
+        <span class="upload-pill">3 Sectors</span>
+        <span class="upload-pill">100% Private</span>
+      </div>
+    </div>
+
+    <div class="upload-right">
       <div id="drop-zone">
         <div class="drop-ring">
           <svg viewBox="0 0 56 56" fill="none">
@@ -44,9 +44,9 @@
           100% client-side &mdash; data never leaves your device
         </div>
       </div>
-
       <div id="error-msg"></div>
     </div>
+
     <input type="file" id="file-input" accept=".xlsx,.xls" style="display:none">
   </div>
 
