@@ -5,18 +5,18 @@ const Theme = (() => {
   // ─── Palette Definitions ───
   const PALETTES = {
     dark: {
-      gold:     { label: "Gold",     shades: ["#C8A96E","#5B8DEF","#E06B8A","#6EC8A9","#C490D4","#E8A44C","#52BFD9","#D4716E"] },
-      ocean:    { label: "Ocean",    shades: ["#5B8DEF","#E8A44C","#6EC8A9","#C490D4","#E06B8A","#52BFD9","#C8A96E","#8BBF5E"] },
-      sage:     { label: "Sage",     shades: ["#6EC8A9","#D4896E","#7B8DEF","#E0C870","#C490D4","#52BFD9","#E06B8A","#8BBF5E"] },
-      lavender: { label: "Lavender", shades: ["#A78BDB","#5BC8A9","#E8A44C","#5B8DEF","#E06B8A","#8BBF5E","#52BFD9","#D4896E"] },
-      copper:   { label: "Copper",   shades: ["#D4896E","#5B8DEF","#6EC8A9","#C490D4","#E0C870","#52BFD9","#E06B8A","#8BBF5E"] },
+      gold:     { label: "Gold",     shades: ["#C8A96E","#F0D8A0","#8C6D32","#E0C078","#A48540","#D4B060","#786020","#F5E4B8"] },
+      ocean:    { label: "Ocean",    shades: ["#5B8DEF","#A0C4FF","#1A4DB0","#78AAFF","#3468D0","#90B8FF","#284CA0","#C0D8FF"] },
+      sage:     { label: "Sage",     shades: ["#6EC8A9","#A8F0D5","#2E8869","#88DCC0","#449880","#9CE8CC","#1C6850","#C0F5E0"] },
+      lavender: { label: "Lavender", shades: ["#A78BDB","#D0B8FF","#674B9B","#C0A4F0","#8068C0","#B898E8","#5038A0","#E0D0FF"] },
+      copper:   { label: "Copper",   shades: ["#D4896E","#F0B8A0","#944932","#E8A488","#B06848","#F0B098","#7C3820","#F8D0C0"] },
     },
     light: {
-      slate:  { label: "Slate",  shades: ["#64748B","#2563EB","#D946A8","#0D9488","#7C3AED","#D97706","#0891B2","#BE123C"] },
-      indigo: { label: "Indigo", shades: ["#4F46E5","#D946A8","#0D9488","#D97706","#64748B","#BE123C","#0891B2","#15803D"] },
-      teal:   { label: "Teal",   shades: ["#0D9488","#D97706","#4F46E5","#BE123C","#64748B","#7C3AED","#0891B2","#D946A8"] },
-      rose:   { label: "Rose",   shades: ["#BE123C","#2563EB","#0D9488","#D97706","#7C3AED","#64748B","#D946A8","#0891B2"] },
-      amber:  { label: "Amber",  shades: ["#D97706","#2563EB","#0D9488","#BE123C","#7C3AED","#64748B","#D946A8","#0891B2"] },
+      slate:  { label: "Slate",  shades: ["#64748B","#334155","#94A3B8","#475569","#A0AFBF","#3E4C5C","#7C8DA0","#283040"] },
+      indigo: { label: "Indigo", shades: ["#4F46E5","#252788","#818CF8","#3730A3","#A5B4FC","#312E81","#6366F1","#C7D2FE"] },
+      teal:   { label: "Teal",   shades: ["#0D9488","#065848","#2DD4BF","#0F766E","#5EEAD4","#134E48","#14B8A6","#99F6E4"] },
+      rose:   { label: "Rose",   shades: ["#E11D48","#881337","#FB7185","#9F1239","#FDA4AF","#BE123C","#F43F5E","#FFE4E6"] },
+      amber:  { label: "Amber",  shades: ["#D97706","#783F08","#F59E0B","#92400E","#FCD34D","#B45309","#FBBF24","#FEF3C7"] },
     }
   };
 
