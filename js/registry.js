@@ -85,7 +85,7 @@ const REGISTRY = {
       { label: "Rule of 40", row: "Rule of 40 Score", format: "percent" },
       { label: "Burn Multiple", row: "Burn Multiple", format: "ratio" }
     ],
-    chartRows: ["Revenue Growth %", "EBITDA Margin %", "Rule of 40 Score"],
+    chartRows: ["Rule of 40 Score", "Burn Multiple"],
     tableRows: "all"
   },
   saas_sales_efficiency: {
