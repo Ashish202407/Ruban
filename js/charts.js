@@ -11,7 +11,7 @@ const Charts = (() => {
   }
 
   function sharpDPR() {
-    return Math.max(window.devicePixelRatio || 1, 3);
+    return Math.min(window.devicePixelRatio || 1, 2);
   }
 
   if (typeof Chart !== 'undefined') {
