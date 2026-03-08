@@ -93,11 +93,17 @@ const Charts = (() => {
           borderWidth: 1.5, hoverOffset: 6,
         };
       }
+      if (isStacked) {
+        return {
+          label: ds.label, data: ds.values,
+          backgroundColor: alpha, borderColor: "transparent",
+          borderWidth: 0, borderRadius: 0,
+        };
+      }
       return {
         label: ds.label, data: ds.values,
         backgroundColor: alpha, borderColor: color,
-        borderWidth: isStacked ? 0 : 1.5,
-        borderRadius: 3, borderSkipped: false,
+        borderWidth: 1.5, borderRadius: 3, borderSkipped: false,
       };
     });
 
