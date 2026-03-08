@@ -500,7 +500,7 @@ const Renderer = (() => {
         <path d="M8 1L2 4v4c0 3.5 2.5 6.4 6 7 3.5-.6 6-3.5 6-7V4L8 1z" stroke="currentColor" stroke-width="1.5" fill="none"/>
         <path d="M5.5 8l2 2 3-3.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <span>Your data never leaves your device — The VC Corner</span>
+      <span>Your data never leaves your device - The VC Corner</span>
     `;
     return badge;
   }
