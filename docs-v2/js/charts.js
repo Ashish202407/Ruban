@@ -10,6 +10,21 @@ const Charts = (() => {
     return `rgba(${r},${g},${b},${a})`;
   }
 
+  /**
+   * Spread palette colors for maximum visual distinction.
+   * Instead of picking sequential shades (0,1,2 = all dark),
+   * pick evenly spaced shades across the full range.
+   */
+  function spreadPalette(palette, count) {
+    if (count <= 1 || count >= palette.length) return palette;
+    const result = [];
+    for (let i = 0; i < count; i++) {
+      const idx = Math.round(i * (palette.length - 1) / (count - 1));
+      result.push(palette[idx]);
+    }
+    return result;
+  }
+
   function sharpDPR() {
     return Math.min(window.devicePixelRatio || 1, 2);
   }
@@ -50,7 +65,8 @@ const Charts = (() => {
     const chartType = type === "stacked_bar" ? "bar" : (type === "pie" ? "doughnut" : type);
     const isStacked = type === "stacked_bar";
 
-    const palette = Theme.getPalette();
+    const rawPalette = Theme.getPalette();
+    const palette = spreadPalette(rawPalette, datasets.length);
     const paletteAlpha = palette.map(c => hexToRgba(c, 0.7));
     const paletteBg = palette.map(c => hexToRgba(c, 0.15));
     const ct = Theme.getChartTheme();
@@ -80,7 +96,7 @@ const Charts = (() => {
       return {
         label: ds.label, data: ds.values,
         backgroundColor: alpha, borderColor: color,
-        borderWidth: 1.5, borderRadius: 5, borderSkipped: false,
+        borderWidth: 1.5, borderRadius: 3, borderSkipped: false,
       };
     });
 
@@ -409,7 +425,7 @@ const Charts = (() => {
    */
   function createStackedArea(canvas, labels, datasets, currencySymbol, yFormat) {
     const ctx = canvas.getContext("2d");
-    const palette = Theme.getPalette();
+    const palette = spreadPalette(Theme.getPalette(), datasets.length);
     const ct = Theme.getChartTheme();
     const tickFormatter = buildTickFormatter(yFormat || "currency", currencySymbol);
     const tooltipFormatter = buildTooltipFormatter(yFormat || "currency", currencySymbol);
@@ -537,7 +553,7 @@ const Charts = (() => {
    */
   function createDonutKPI(canvas, labels, datasets, currencySymbol) {
     const ctx = canvas.getContext("2d");
-    const palette = Theme.getPalette();
+    const palette = spreadPalette(Theme.getPalette(), datasets.length);
     const ct = Theme.getChartTheme();
 
     // Use Year 5 values
@@ -678,11 +694,23 @@ const Charts = (() => {
     if (yFormat === "ratio") {
       return (value) => value.toFixed(1) + "x";
     }
+    // Currency: use Indian notation (L/Cr) only for ₹, else standard K/M/B
+    if (sym === "₹") {
+      return (value) => {
+        const abs = Math.abs(value);
+        const sign = value < 0 ? "-" : "";
+        if (abs >= 10000000) return sign + sym + (abs / 10000000).toFixed(1) + "Cr";
+        if (abs >= 100000) return sign + sym + (abs / 100000).toFixed(1) + "L";
+        if (abs >= 1000) return sign + sym + (abs / 1000).toFixed(1) + "K";
+        if (abs === 0) return sym + "0";
+        return sign + sym + abs.toFixed(abs < 10 ? 1 : 0);
+      };
+    }
     return (value) => {
       const abs = Math.abs(value);
       const sign = value < 0 ? "-" : "";
-      if (abs >= 10000000) return sign + sym + (abs / 10000000).toFixed(1) + "Cr";
-      if (abs >= 100000) return sign + sym + (abs / 100000).toFixed(1) + "L";
+      if (abs >= 1000000000) return sign + sym + (abs / 1000000000).toFixed(1) + "B";
+      if (abs >= 1000000) return sign + sym + (abs / 1000000).toFixed(1) + "M";
       if (abs >= 1000) return sign + sym + (abs / 1000).toFixed(1) + "K";
       if (abs === 0) return sym + "0";
       return sign + sym + abs.toFixed(abs < 10 ? 1 : 0);
@@ -708,11 +736,23 @@ const Charts = (() => {
     if (yFormat === "ratio") {
       return (value) => value.toFixed(2) + "x";
     }
+    // Currency tooltip: Indian notation for ₹, standard for others
+    if (sym === "₹") {
+      return (value) => {
+        const abs = Math.abs(value);
+        const sign = value < 0 ? "-" : "";
+        if (abs >= 10000000) return sign + sym + (abs / 10000000).toFixed(2) + " Cr";
+        if (abs >= 100000) return sign + sym + (abs / 100000).toFixed(2) + " L";
+        if (abs >= 1000) return sign + sym + (abs / 1000).toFixed(1) + "K";
+        if (abs === 0) return sym + "0";
+        return sign + sym + abs.toFixed(2);
+      };
+    }
     return (value) => {
       const abs = Math.abs(value);
       const sign = value < 0 ? "-" : "";
-      if (abs >= 10000000) return sign + sym + (abs / 10000000).toFixed(2) + " Cr";
-      if (abs >= 100000) return sign + sym + (abs / 100000).toFixed(2) + " L";
+      if (abs >= 1000000000) return sign + sym + (abs / 1000000000).toFixed(2) + "B";
+      if (abs >= 1000000) return sign + sym + (abs / 1000000).toFixed(2) + "M";
       if (abs >= 1000) return sign + sym + (abs / 1000).toFixed(1) + "K";
       if (abs === 0) return sym + "0";
       return sign + sym + abs.toFixed(2);
