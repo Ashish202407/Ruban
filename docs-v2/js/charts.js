@@ -96,7 +96,8 @@ const Charts = (() => {
       return {
         label: ds.label, data: ds.values,
         backgroundColor: alpha, borderColor: color,
-        borderWidth: 1.5, borderRadius: 3, borderSkipped: false,
+        borderWidth: isStacked ? 0 : 1.5,
+        borderRadius: 3, borderSkipped: false,
       };
     });
 
