@@ -538,33 +538,39 @@ body {
 
 /* ─── Table Toggle ─── */
 .table-toggle {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  width: 100%;
-  padding: 5px;
-  border: 1px solid var(--border-subtle);
+  gap: 4px;
+  margin: 0 auto;
+  padding: 4px 12px;
+  border: none;
   border-radius: var(--radius-xs);
   background: transparent;
   color: var(--text-tertiary);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 500;
   font-family: var(--font);
+  letter-spacing: 0.02em;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: color 0.2s, background 0.2s;
+  width: 100%;
 }
 
 .table-toggle:hover {
-  background: var(--bg-card);
+  background: var(--bg-hover, rgba(0,0,0,0.03));
   color: var(--text-secondary);
-  border-color: var(--border);
 }
 
 .table-toggle svg {
-  width: 12px;
-  height: 12px;
-  transition: transform 0.2s;
+  width: 10px;
+  height: 10px;
+  opacity: 0.5;
+  transition: transform 0.2s, opacity 0.2s;
+}
+
+.table-toggle:hover svg {
+  opacity: 0.8;
 }
 
 .table-toggle.is-open svg {
