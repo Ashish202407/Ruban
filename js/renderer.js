@@ -518,8 +518,15 @@ const Renderer = (() => {
     if (val === 0 || val === null || val === undefined) return sym + "0";
     const abs = Math.abs(val);
     const sign = val < 0 ? "-" : "";
-    if (abs >= 10000000) return sign + sym + (abs / 10000000).toFixed(2) + " Cr";
-    if (abs >= 100000) return sign + sym + (abs / 100000).toFixed(2) + " L";
+    // Indian notation for ₹, standard K/M/B for others
+    if (sym === "₹") {
+      if (abs >= 10000000) return sign + sym + (abs / 10000000).toFixed(2) + " Cr";
+      if (abs >= 100000) return sign + sym + (abs / 100000).toFixed(2) + " L";
+      if (abs >= 1000) return sign + sym + commas((abs / 1000).toFixed(1)) + "K";
+      return sign + sym + commas(abs.toFixed(2));
+    }
+    if (abs >= 1000000000) return sign + sym + (abs / 1000000000).toFixed(2) + "B";
+    if (abs >= 1000000) return sign + sym + (abs / 1000000).toFixed(2) + "M";
     if (abs >= 1000) return sign + sym + commas((abs / 1000).toFixed(1)) + "K";
     return sign + sym + commas(abs.toFixed(2));
   }
@@ -528,8 +535,8 @@ const Renderer = (() => {
     if (val === 0 || val === null) return "0";
     const abs = Math.abs(val);
     const sign = val < 0 ? "-" : "";
-    if (abs >= 10000000) return sign + (abs / 10000000).toFixed(1) + " Cr";
-    if (abs >= 100000) return sign + (abs / 100000).toFixed(1) + "L";
+    if (abs >= 1000000000) return sign + (abs / 1000000000).toFixed(1) + "B";
+    if (abs >= 1000000) return sign + (abs / 1000000).toFixed(1) + "M";
     if (abs >= 1000) return sign + commas((abs / 1000).toFixed(1)) + "K";
     return sign + commas(abs.toFixed(0));
   }
