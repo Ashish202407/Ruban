@@ -241,6 +241,30 @@ body {
   width: 100%;
 }
 
+.download-template {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  color: var(--text-tertiary);
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.download-template:hover {
+  color: var(--accent);
+}
+
+.download-template svg {
+  opacity: 0.7;
+}
+
+.download-template:hover svg {
+  opacity: 1;
+}
+
 /* ─── Dashboard Nav ─── */
 #dashboard-screen {
   display: none;
