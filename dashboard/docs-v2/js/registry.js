@@ -278,7 +278,7 @@ const REGISTRY = {
       { label: "Total GMV", row: "Total GMV", format: "currency" },
       { label: "Blended AOV", row: "Blended AOV", format: "currency" }
     ],
-    chartRows: ["GMV — Website", "GMV — Retail", "GMV — Marketplace"],
+    chartRows: ["GMV - Website", "GMV - Retail", "GMV - Marketplace"],
     tableRows: "all"
   },
   d2c_channel_revenue: {
@@ -291,7 +291,7 @@ const REGISTRY = {
       { label: "Total Net Revenue", row: "Total Net Revenue", format: "currency" },
       { label: "Revenue Growth", row: "Total Net Revenue", format: "growth" }
     ],
-    chartRows: ["Website — Net Revenue", "Retail — Net Revenue", "Marketplace — Net Revenue"],
+    chartRows: ["Website - Net Revenue", "Retail - Net Revenue", "Marketplace - Net Revenue"],
     tableRows: "all"
   },
   d2c_return_rates: {
@@ -301,7 +301,7 @@ const REGISTRY = {
     yFormat: "currency",
     category: "Revenue",
     kpis: [],
-    chartRows: ["Website — Net Revenue", "Retail — Net Revenue", "Marketplace — Net Revenue"],
+    chartRows: ["Website - Net Revenue", "Retail - Net Revenue", "Marketplace - Net Revenue"],
     tableRows: "all"
   },
   d2c_customer_funnel: {
@@ -328,7 +328,7 @@ const REGISTRY = {
       { label: "Blended Churn", row: "Blended Churn Rate", format: "percent" },
       { label: "Repeat Rate", row: "Repeat Purchase Rate", format: "percent" }
     ],
-    chartRows: ["Website — Churn Rate", "Retail — Churn Rate", "Marketplace — Churn Rate", "Blended Churn Rate"],
+    chartRows: ["Website - Churn Rate", "Retail - Churn Rate", "Marketplace - Churn Rate", "Blended Churn Rate"],
     tableRows: "all"
   },
   d2c_unit_economics: {
@@ -482,7 +482,7 @@ const REGISTRY = {
     yFormat: "currency",
     category: "Unit Economics",
     kpis: [],
-    chartRows: ["Website — Contribution Margin", "Retail — Contribution Margin", "Marketplace — Contribution Margin"],
+    chartRows: ["Website - Contribution Margin", "Retail - Contribution Margin", "Marketplace - Contribution Margin"],
     tableRows: "all"
   },
   d2c_ltv_channel: {

@@ -1,5 +1,5 @@
 /**
- * Ruban Renderer — Dark dashboard DOM builder
+ * Ruban Renderer - Dark dashboard DOM builder
  */
 const Renderer = (() => {
   let chartInstances = [];
@@ -150,7 +150,7 @@ const Renderer = (() => {
       }
     }
 
-    // HTML legend (outside canvas — no overlap with y-axis)
+    // HTML legend (outside canvas - no overlap with y-axis)
     if (datasets.length > 0 && config.chartType !== "pie") {
       const legend = document.createElement("div");
       legend.className = "chart-legend";

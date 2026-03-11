@@ -1,5 +1,5 @@
 /**
- * Ruban Charts — Chart.js factory, dynamic theme colors, razor-sharp at any zoom
+ * Ruban Charts - Chart.js factory, dynamic theme colors, razor-sharp at any zoom
  */
 const Charts = (() => {
 

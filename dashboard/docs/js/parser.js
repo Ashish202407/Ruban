@@ -1,5 +1,5 @@
 /**
- * Ruban Parser — SheetJS-based Excel parser
+ * Ruban Parser - SheetJS-based Excel parser
  * Reads Setup, Checklist, and sector data via hidden column anchors.
  * Includes client-side formula evaluation for when cached results are missing
  * (e.g. files saved by openpyxl which doesn't evaluate formulas).
@@ -56,7 +56,7 @@ const Parser = (() => {
   }
 
   /**
-   * Read a cell's numeric value — handles cached values, formulas, formatted text
+   * Read a cell's numeric value - handles cached values, formulas, formatted text
    */
   function getCellNumber(ws, r, c) {
     const cell = ws[XLSX.utils.encode_cell({ r, c })];
@@ -148,7 +148,7 @@ const Parser = (() => {
             continue;
           }
 
-          // Has a formula — always evaluate (openpyxl doesn't cache values)
+          // Has a formula - always evaluate (openpyxl doesn't cache values)
           if (cell.f) {
             const evaluated = evaluateFormula(cell.f, cellCache);
             if (evaluated !== null) {
@@ -208,7 +208,7 @@ const Parser = (() => {
         return String(sum);
       });
 
-      // Handle IF(cond, trueVal, falseVal) — simplistic
+      // Handle IF(cond, trueVal, falseVal) - simplistic
       expr = expr.replace(/IF\(([^,]+),([^,]+),([^)]+)\)/gi, (_, cond, trueVal, falseVal) => {
         // Evaluate the condition
         const condResult = evalSimple(cond, cellCache);
@@ -277,7 +277,7 @@ const Parser = (() => {
   }
 
   /**
-   * Evaluate arithmetic expression string (no cell refs — already replaced)
+   * Evaluate arithmetic expression string (no cell refs - already replaced)
    * Uses Function constructor for safe math evaluation
    */
   function evalArithmetic(expr) {

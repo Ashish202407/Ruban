@@ -74,7 +74,7 @@ def add_guide_sheet(wb):
     # ── Title ──
     r = 2
     ws.merge_cells("B2:D2")
-    c = ws.cell(row=r, column=2, value="THE VC CORNER — Quick Start Guide")
+    c = ws.cell(row=r, column=2, value="THE VC CORNER - Quick Start Guide")
     c.font = F_GUIDE_TITLE
     c.alignment = A_LEFT
 
@@ -95,11 +95,11 @@ def add_guide_sheet(wb):
          "marked 'Yes' will appear on your dashboard. Start with the defaults."),
         ("Step 3: Fill Your Data",
          "Open the sheet matching your Business Type (AI-SaaS, D2C, or Healthcare). "
-         "Fill only the blue cells — these are your inputs. Gray cells with formulas "
+         "Fill only the blue cells - these are your inputs. Gray cells with formulas "
          "will auto-calculate. Enter 5-year projections in columns B through F."),
         ("Step 4: Upload",
          "Save this file, then go to thevcorner.com. Click 'Upload Template' and "
-         "select your saved .xlsx file. Everything runs in your browser — your data "
+         "select your saved .xlsx file. Everything runs in your browser - your data "
          "never leaves your device."),
         ("Step 5: Dashboard",
          "Your investor-ready dashboard generates instantly with charts, KPIs, "
@@ -129,9 +129,9 @@ def add_guide_sheet(wb):
     r += 1
 
     legends = [
-        ("Blue text",   "Your input — fill these cells",
+        ("Blue text",   "Your input - fill these cells",
          Font(name="Calibri", size=10, bold=True, color=INPUT_BLUE), BG_WHITE),
-        ("Gray fill",   "Auto-calculated (formula) — do not edit",
+        ("Gray fill",   "Auto-calculated (formula) - do not edit",
          Font(name="Calibri", size=10, color=DARK_GRAY), BG_PALE),
         ("Dark header", "Section name / column header",
          Font(name="Calibri", size=10, bold=True, color=WHITE), BG_HEADER),
@@ -160,10 +160,10 @@ def add_guide_sheet(wb):
     r += 1
 
     tips = [
-        "Only fill sections you marked 'Yes' on the Checklist — everything else is ignored.",
+        "Only fill sections you marked 'Yes' on the Checklist - everything else is ignored.",
         "Formulas auto-calculate totals, margins, ratios, and derived metrics.",
         "All values are in your chosen currency (set on Setup sheet). Use thousands (e.g. 1200 = $1.2M).",
-        "Upload your completed file at thevcorner.com — 100% private, browser-only processing.",
+        "Upload your completed file at thevcorner.com - 100% private, browser-only processing.",
     ]
 
     for tip in tips:
@@ -196,7 +196,7 @@ def improve_setup_sheet(ws):
 
 def improve_checklist_sheet(ws):
     """Add 'How to use' note at top of Checklist sheet."""
-    # Insert a note in an available space — we'll use a merged range above the data
+    # Insert a note in an available space - we'll use a merged range above the data
     # Row 2 has column headers, data starts row 3. We can't easily insert rows
     # without breaking existing structure, so add note to the right side
     ws.column_dimensions["F"].width = 50
@@ -206,7 +206,7 @@ def improve_checklist_sheet(ws):
                       "• Set each section to Yes or No\n"
                       "• Only 'Yes' sections appear on the dashboard\n"
                       "• The original 10 sections per sector default to Yes\n"
-                      "• New v2 sections default to No — enable as needed")
+                      "• New v2 sections default to No - enable as needed")
     c.font = F_INSTRUCT
     c.alignment = A_WRAP
 
@@ -215,7 +215,7 @@ def add_color_legend_to_sector(ws):
     """Add color legend row below year headers (row 3) on sector sheets.
     We'll put the legend in an unobtrusive way in a merged cell at right."""
     # Add a small legend note merged in columns that won't interfere
-    # Use row 2 which already has instruction text — append to it
+    # Use row 2 which already has instruction text - append to it
     existing = ws.cell(row=2, column=1).value or ""
     if existing and "Color guide" not in existing:
         ws.cell(row=2, column=1).value = (
@@ -284,7 +284,7 @@ def improve_template(input_path, output_path):
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# PART 2: CREATE SAMPLE — "Cortex AI"
+# PART 2: CREATE SAMPLE - "Cortex AI"
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def create_sample(template_path, output_path):
@@ -341,7 +341,7 @@ def create_sample(template_path, output_path):
             ws_saas.cell(row=r, column=2 + i, value=v)
 
     # ═══════════════════════════════════════════════════════════════════════
-    # Cortex AI — AI-powered document intelligence platform
+    # Cortex AI - AI-powered document intelligence platform
     # Growth trajectory: Seed → Series B, USD thousands
     # ARR: 4K → 12K → 30K → 58K → 95K
     # ═══════════════════════════════════════════════════════════════════════
@@ -408,7 +408,7 @@ def create_sample(template_path, output_path):
     fill("Monthly Burn Rate",       [267,   350,    200,    0,      0])
 
     # ── 10. Fundraising & Cap Table ──
-    fill("Round Name",          ["Seed",    "Series A", "—",        "Series B", "—"])
+    fill("Round Name",          ["Seed",    "Series A", "-",        "Series B", "-"])
     fill("Amount Raised",       [8000,      25000,      0,          12000,      0])
     fill("Pre-Money Valuation", [15000,     50000,      0,          150000,     0])
     fill("Post-Money Valuation",[23000,     75000,      0,          162000,     0])
@@ -431,7 +431,7 @@ def create_sample(template_path, output_path):
     fill("R&D Headcount",    [18,    38,     65,     100,    150])
     fill("S&M Headcount",    [8,     18,     35,     65,     100])
     fill("G&A Headcount",    [4,     9,      20,     35,     50])
-    # Total Revenue in headcount section — find by offset from Total Headcount
+    # Total Revenue in headcount section - find by offset from Total Headcount
     hc_row = label_rows.get("Total Headcount")
     if hc_row:
         rev_row = hc_row + 4  # Total Revenue is 4 rows below Total Headcount

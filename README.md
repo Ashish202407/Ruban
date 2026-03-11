@@ -2,7 +2,7 @@
 
 **Fill an Excel template. Get an investor-grade dashboard.**
 
-Upload your 5-year financial projections and instantly generate a polished, interactive dashboard — 100% client-side, your data never leaves your browser.
+Upload your 5-year financial projections and instantly generate a polished, interactive dashboard - 100% client-side, your data never leaves your browser.
 
 **[Try it live →](https://ashish202407.github.io/Ruban/)**
 
@@ -15,7 +15,7 @@ Upload your 5-year financial projections and instantly generate a polished, inte
 3. **Toggle** sections on the Checklist sheet (Yes/No)
 4. **Enter** your numbers in the relevant sector sheet (blue cells = your inputs, black cells = auto-calculated formulas)
 5. **Upload** the filled file at the link above
-6. **Done** — dashboard renders instantly with KPIs, charts, and data tables
+6. **Done** - dashboard renders instantly with KPIs, charts, and data tables
 
 ## Supported Sectors
 
@@ -27,13 +27,13 @@ Upload your 5-year financial projections and instantly generate a polished, inte
 
 ## Dashboard Features
 
-- **VC Readiness Radar** — 6-axis spider chart scoring your startup vs benchmarks (per sector)
-- **Category Grouping** — sections organized by Revenue, Retention, Operations, etc. with sticky headers
-- **YoY Badges** — auto-computed Year 4→5 deltas on every section card
-- **Chart Types** — line, bar, stacked bar, doughnut, waterfall (P&L), gauge (Rule of 40), stacked area (cap table), combo (fundraising), radar
-- **Dark/Light Theme** — toggle with smooth transitions
-- **Export PDF** — one-click print-friendly layout
-- **100% Private** — all processing in-browser, no server calls
+- **VC Readiness Radar** - 6-axis spider chart scoring your startup vs benchmarks (per sector)
+- **Category Grouping** - sections organized by Revenue, Retention, Operations, etc. with sticky headers
+- **YoY Badges** - auto-computed Year 4→5 deltas on every section card
+- **Chart Types** - line, bar, stacked bar, doughnut, waterfall (P&L), gauge (Rule of 40), stacked area (cap table), combo (fundraising), radar
+- **Dark/Light Theme** - toggle with smooth transitions
+- **Export PDF** - one-click print-friendly layout
+- **100% Private** - all processing in-browser, no server calls
 
 ## Project Structure
 
@@ -68,11 +68,11 @@ Ruban/
 - **Dashboard:** Vanilla JS, no build step
 - **Parsing:** [SheetJS](https://sheetjs.com/) + custom client-side formula evaluator
 - **Charts:** [Chart.js](https://www.chartjs.org/) + custom Canvas 2D (gauge, waterfall)
-- **Hosting:** GitHub Pages — static, no backend
+- **Hosting:** GitHub Pages - static, no backend
 
 ## Privacy
 
-All processing happens in your browser. No data is uploaded to any server. The Excel file is read using SheetJS in JavaScript — nothing leaves your device.
+All processing happens in your browser. No data is uploaded to any server. The Excel file is read using SheetJS in JavaScript - nothing leaves your device.
 
 ## Generating the Template
 

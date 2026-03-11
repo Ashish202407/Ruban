@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   Ruban Dashboard — Dark Investor Terminal / Landscape-first
+   Ruban Dashboard - Dark Investor Terminal / Landscape-first
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
@@ -282,7 +282,7 @@ body {
   text-transform: uppercase;
 }
 
-/* ─── Dashboard Container — landscape-wide ─── */
+/* ─── Dashboard Container - landscape-wide ─── */
 #dashboard {
   max-width: 1680px;
   margin: 0 auto;
@@ -346,7 +346,7 @@ body {
   font-weight: 500;
 }
 
-/* ─── KPI Strip — full-width row ─── */
+/* ─── KPI Strip - full-width row ─── */
 .kpi-strip {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
@@ -408,7 +408,7 @@ body {
   background: var(--red-dim);
 }
 
-/* ─── Chart Grid — 3-column landscape ─── */
+/* ─── Chart Grid - 3-column landscape ─── */
 .chart-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

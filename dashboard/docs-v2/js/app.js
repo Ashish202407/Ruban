@@ -1,5 +1,5 @@
 /**
- * The VC Corner App — Orchestrator
+ * The VC Corner App - Orchestrator
  * File upload → parse → render
  */
 (function () {

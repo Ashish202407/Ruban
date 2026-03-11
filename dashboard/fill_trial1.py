@@ -49,7 +49,7 @@ fill("Beginning MRR",   [0,      42,     150,    480,    1200])
 fill("New MRR",         [30,     80,     220,    500,    900])
 fill("Expansion MRR",   [5,      20,     80,     180,    350])
 fill("Churned MRR",     [3,      12,     30,     60,     110])
-# Ending MRR & ARR are formulas — auto-calc
+# Ending MRR & ARR are formulas - auto-calc
 
 # ── 2. Revenue by Plan/Tier (USD thousands) ──
 fill("Free Users (count)", [500,  2000,   8000,   20000,  45000])
@@ -103,7 +103,7 @@ fill("Equity Raised",           [3000,  15000,  0,      10000,  0])
 fill("Monthly Burn Rate",       [70,    100,    35,     0,      0])
 
 # ── 10. Fundraising & Cap Table ──
-fill("Round Name",          ["Pre-Seed", "Seed",   "Series A", "Series B", "—"])
+fill("Round Name",          ["Pre-Seed", "Seed",   "Series A", "Series B", "-"])
 fill("Amount Raised",       [500,    3000,   15000,  10000,  0])
 fill("Pre-Money Valuation", [2000,   8000,   45000,  120000, 0])
 fill("Post-Money Valuation",[2500,   11000,  60000,  130000, 0])

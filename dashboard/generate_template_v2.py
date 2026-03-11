@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """
-The VC Corner Template Generator — Multi-Sector Fill-and-Generate Template
+The VC Corner Template Generator - Multi-Sector Fill-and-Generate Template
 ===========================================================================
 Generates VCCorner_Template_v2.xlsx with 5 sheets:
-  1. Setup       — Company info + dropdowns
-  2. Checklist   — 58 section toggles (Yes/No)
-  3. AI-SaaS     — 20 empty input sections
-  4. D2C         — 20 empty input sections
-  5. Healthcare  — 18 empty input sections
+  1. Setup       - Company info + dropdowns
+  2. Checklist   - 58 section toggles (Yes/No)
+  3. AI-SaaS     - 20 empty input sections
+  4. D2C         - 20 empty input sections
+  5. Healthcare  - 18 empty input sections
 
 Hidden columns on sector sheets:
   H = machine-readable section ID (anchor for JS parser)
@@ -23,7 +23,7 @@ from openpyxl.utils import get_column_letter
 from openpyxl.worksheet.datavalidation import DataValidation
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# THEME & STYLES — Greyscale + Blue inputs (matches generate_model.py)
+# THEME & STYLES - Greyscale + Blue inputs (matches generate_model.py)
 # ═══════════════════════════════════════════════════════════════════════════════
 BLACK      = "1A1A1A"
 DARK_GRAY  = "333333"
@@ -327,7 +327,7 @@ def build_setup(wb):
 
     set_widths(ws, {"A": 28, "B": 30, "C": 5, "D": 5})
 
-    write_title_bar(ws, "THE VC CORNER — Company Setup", max_col)
+    write_title_bar(ws, "THE VC CORNER - Company Setup", max_col)
 
     # Instruction
     ws.merge_cells("A2:B2")
@@ -414,7 +414,7 @@ def build_checklist(wb):
 
     set_widths(ws, {"A": 14, "B": 18, "C": 32, "D": 12, "E": 5})
 
-    write_title_bar(ws, "THE VC CORNER — Section Checklist", max_col)
+    write_title_bar(ws, "THE VC CORNER - Section Checklist", max_col)
 
     # Column headers
     r = 2
@@ -521,7 +521,7 @@ def setup_sector_sheet(wb, name, title):
 # SHEET 3: AI-SaaS
 # ═══════════════════════════════════════════════════════════════════════════════
 def build_saas(wb):
-    ws, r = setup_sector_sheet(wb, "AI-SaaS", "THE VC CORNER — AI-SaaS Projections")
+    ws, r = setup_sector_sheet(wb, "AI-SaaS", "THE VC CORNER - AI-SaaS Projections")
     mc = 7  # max visible col for section headers
 
     # ── 1. MRR & ARR Progression ──
@@ -608,7 +608,7 @@ def build_saas(wb):
     arpa = r - 1
     r = write_input_row(ws, r, "Gross Margin %", fmt='0.0%')
     gm_pct = r - 1
-    # LTV = ARPA * GM% / Churn% — user provides churn separately
+    # LTV = ARPA * GM% / Churn% - user provides churn separately
     r = write_input_row(ws, r, "Annual Churn Rate %", fmt='0.0%')
     churn_rate = r - 1
     formulas = [f"=IF({cell_ref(churn_rate, c)}<>0,{cell_ref(arpa, c)}*{cell_ref(gm_pct, c)}/{cell_ref(churn_rate, c)},0)"
@@ -851,7 +851,7 @@ def build_saas(wb):
 # SHEET 4: D2C
 # ═══════════════════════════════════════════════════════════════════════════════
 def build_d2c(wb):
-    ws, r = setup_sector_sheet(wb, "D2C", "THE VC CORNER — D2C Projections")
+    ws, r = setup_sector_sheet(wb, "D2C", "THE VC CORNER - D2C Projections")
     mc = 7
     channels = ["Website", "Retail", "Marketplace"]
 
@@ -868,7 +868,7 @@ def build_d2c(wb):
         cust_r, ord_r, aov_r = r - 3, r - 2, r - 1
         formulas = [f"={cell_ref(cust_r, c)}*{cell_ref(ord_r, c)}*{cell_ref(aov_r, c)}"
                     for c in YEAR_COLS]
-        r = write_formula_row(ws, r, f"  GMV — {ch}", formulas, is_total=True)
+        r = write_formula_row(ws, r, f"  GMV - {ch}", formulas, is_total=True)
         ch_gmv_rows[ch] = r - 1
 
     r = write_input_row(ws, r, "Blended AOV")
@@ -881,18 +881,18 @@ def build_d2c(wb):
     r = write_section_header(ws, r, "2. Channel Revenue Breakup", mc, "d2c_channel_revenue")
     ch_rev_rows = {}
     for ch in channels:
-        r = write_input_row(ws, r, f"{ch} — GMV")
+        r = write_input_row(ws, r, f"{ch} - GMV")
         gmv_r = r - 1
-        r = write_input_row(ws, r, f"{ch} — Return Rate", fmt='0.0%')
+        r = write_input_row(ws, r, f"{ch} - Return Rate", fmt='0.0%')
         ret_r = r - 1
         if ch == "Marketplace":
-            r = write_input_row(ws, r, f"{ch} — Commission %", fmt='0.0%')
+            r = write_input_row(ws, r, f"{ch} - Commission %", fmt='0.0%')
             comm_r = r - 1
             formulas = [f"={cell_ref(gmv_r, c)}*(1-{cell_ref(ret_r, c)})*(1-{cell_ref(comm_r, c)})"
                         for c in YEAR_COLS]
         else:
             formulas = [f"={cell_ref(gmv_r, c)}*(1-{cell_ref(ret_r, c)})" for c in YEAR_COLS]
-        r = write_formula_row(ws, r, f"{ch} — Net Revenue", formulas, is_total=True)
+        r = write_formula_row(ws, r, f"{ch} - Net Revenue", formulas, is_total=True)
         ch_rev_rows[ch] = r - 1
 
     formulas = [f"=" + "+".join([cell_ref(ch_rev_rows[ch], c) for ch in channels]) for c in YEAR_COLS]
@@ -902,18 +902,18 @@ def build_d2c(wb):
     # ── 3. Return Rates & Net Revenue ──
     r = write_section_header(ws, r, "3. Return Rates & Net Revenue", mc, "d2c_return_rates")
     for ch in channels:
-        r = write_input_row(ws, r, f"{ch} — Gross Revenue")
+        r = write_input_row(ws, r, f"{ch} - Gross Revenue")
         gross_r = r - 1
-        r = write_input_row(ws, r, f"{ch} — Returns")
+        r = write_input_row(ws, r, f"{ch} - Returns")
         returns_r = r - 1
         if ch == "Marketplace":
-            r = write_input_row(ws, r, f"{ch} — Commission")
+            r = write_input_row(ws, r, f"{ch} - Commission")
             comm_r = r - 1
             formulas = [f"={cell_ref(gross_r, c)}-{cell_ref(returns_r, c)}-{cell_ref(comm_r, c)}"
                         for c in YEAR_COLS]
         else:
             formulas = [f"={cell_ref(gross_r, c)}-{cell_ref(returns_r, c)}" for c in YEAR_COLS]
-        r = write_formula_row(ws, r, f"{ch} — Net Revenue", formulas, is_total=True)
+        r = write_formula_row(ws, r, f"{ch} - Net Revenue", formulas, is_total=True)
     r += 1
 
     # ── 4. Customer Funnel ──
@@ -937,7 +937,7 @@ def build_d2c(wb):
     r = write_section_header(ws, r, "5. Cohort Retention & Churn", mc, "d2c_cohort_retention")
     churn_rows = {}
     for ch in channels:
-        r = write_input_row(ws, r, f"{ch} — Churn Rate", fmt='0.0%')
+        r = write_input_row(ws, r, f"{ch} - Churn Rate", fmt='0.0%')
         churn_rows[ch] = r - 1
     # Blended churn
     r = write_input_row(ws, r, "Blended Churn Rate", fmt='0.0%')
@@ -1190,12 +1190,12 @@ def build_d2c(wb):
     # ── 17. Contribution Margin by Channel ──
     r = write_section_header(ws, r, "17. Contribution Margin by Channel", mc, "d2c_contribution_margin")
     for ch in channels:
-        r = write_input_row(ws, r, f"{ch} — Revenue")
+        r = write_input_row(ws, r, f"{ch} - Revenue")
         ch_rev_r = r - 1
-        r = write_input_row(ws, r, f"{ch} — Variable Cost")
+        r = write_input_row(ws, r, f"{ch} - Variable Cost")
         ch_vc_r = r - 1
         formulas = [f"={cell_ref(ch_rev_r, c)}-{cell_ref(ch_vc_r, c)}" for c in YEAR_COLS]
-        r = write_formula_row(ws, r, f"{ch} — Contribution Margin", formulas, is_total=True)
+        r = write_formula_row(ws, r, f"{ch} - Contribution Margin", formulas, is_total=True)
     r += 1
 
     # ── 18. LTV by Acquisition Channel ──
@@ -1238,7 +1238,7 @@ def build_d2c(wb):
 # SHEET 5: Healthcare
 # ═══════════════════════════════════════════════════════════════════════════════
 def build_healthcare(wb):
-    ws, r = setup_sector_sheet(wb, "Healthcare", "THE VC CORNER — Healthcare Projections")
+    ws, r = setup_sector_sheet(wb, "Healthcare", "THE VC CORNER - Healthcare Projections")
     mc = 7
 
     # ── 1. Bed Occupancy & Utilization ──

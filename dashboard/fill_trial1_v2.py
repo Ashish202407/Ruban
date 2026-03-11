@@ -49,7 +49,7 @@ fill("Beginning MRR",   [0,      42,     150,    480,    1200])
 fill("New MRR",         [30,     80,     220,    500,    900])
 fill("Expansion MRR",   [5,      20,     80,     180,    350])
 fill("Churned MRR",     [3,      12,     30,     60,     110])
-# Ending MRR & ARR are formulas — auto-calc
+# Ending MRR & ARR are formulas - auto-calc
 
 # ── 2. Revenue by Plan/Tier (USD thousands) ──
 fill("Free Users (count)", [500,  2000,   8000,   20000,  45000])
@@ -103,7 +103,7 @@ fill("Equity Raised",           [3000,  15000,  0,      10000,  0])
 fill("Monthly Burn Rate",       [70,    100,    35,     0,      0])
 
 # ── 10. Fundraising & Cap Table ──
-fill("Round Name",          ["Pre-Seed", "Seed",   "Series A", "Series B", "—"])
+fill("Round Name",          ["Pre-Seed", "Seed",   "Series A", "Series B", "-"])
 fill("Amount Raised",       [500,    3000,   15000,  10000,  0])
 fill("Pre-Money Valuation", [2000,   8000,   45000,  120000, 0])
 fill("Post-Money Valuation",[2500,   11000,  60000,  130000, 0])
@@ -145,9 +145,9 @@ fill("R&D Headcount",    [8,     18,     35,     55,     80])
 fill("S&M Headcount",    [4,     10,     20,     38,     58])
 fill("G&A Headcount",    [3,     7,      15,     27,     42])
 # "Total Revenue" label exists multiple times; we fill the one in this section
-# The fill function finds the first match — we need section-aware fill for duplicates
+# The fill function finds the first match - we need section-aware fill for duplicates
 # For now, use a simple approach: fill by section-specific label if unique
-# The headcount section's "Total Revenue" is a duplicate — we handle via direct cell:
+# The headcount section's "Total Revenue" is a duplicate - we handle via direct cell:
 # Find the headcount section header row and fill relative to it
 for row_num, cell_val in label_rows.items():
     pass  # We'll handle this below
@@ -170,7 +170,7 @@ if infra_row:
         ws_saas.cell(row=infra_row + 1, column=2 + i, value=v)
 
 # ── 17. ARR Bridge ──
-# This section has its own "Beginning ARR" — find by proximity to "Net New ARR"
+# This section has its own "Beginning ARR" - find by proximity to "Net New ARR"
 # Use direct fill since labels may collide with section 4
 arr_bridge_labels = {
     "New ARR": [384, 1200, 3200, 7500, 12000],

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Ruban Financial Model Generator — v3 (Clean)
+Ruban Financial Model Generator - v3 (Clean)
 ==============================================
 Investor-grade 5-year financial model:
 - No gridlines on any sheet
@@ -25,7 +25,7 @@ from openpyxl.drawing.fill import PatternFillProperties, ColorChoice
 from copy import copy
 
 # ═══════════════════════════════════════════════════════════════════════════════
-# THEME & STYLES — Greyscale + Blue inputs
+# THEME & STYLES - Greyscale + Blue inputs
 # ═══════════════════════════════════════════════════════════════════════════════
 BLACK      = "1A1A1A"
 DARK_GRAY  = "333333"
@@ -54,7 +54,7 @@ F_PCT     = Font(name="Calibri", size=10, italic=True, color=GRAY)
 F_CHECK   = Font(name="Calibri", size=10, bold=True, color=SOFT_GREEN)
 F_NORMAL  = Font(name="Calibri", size=10, color=DARK_GRAY)
 
-# Fills — greyscale only
+# Fills - greyscale only
 BG_HEADER   = PatternFill("solid", fgColor=DARK_GRAY)
 BG_SECTION  = PatternFill("solid", fgColor=LIGHT_GRAY)
 BG_SUBTOTAL = PatternFill("solid", fgColor=PALE_GRAY)
@@ -62,7 +62,7 @@ BG_WHITE    = PatternFill("solid", fgColor=WHITE)
 BG_PALE     = PatternFill("solid", fgColor=PALE_GRAY)
 BG_CHECK    = PatternFill("solid", fgColor="E8F0E8")
 
-# Borders — minimal, only where needed
+# Borders - minimal, only where needed
 THIN_DARK   = Side(style="thin", color=DARK_GRAY)
 THIN_GRAY   = Side(style="thin", color=GRAY)
 HAIR_GRAY   = Side(style="hair", color=LIGHT_GRAY)
@@ -346,7 +346,7 @@ def style_chart(chart, show_legend=True, legend_pos='t', show_data_labels=False,
     elif not show_legend:
         chart.legend = None
 
-    # Title font — keep default styling, openpyxl handles it
+    # Title font - keep default styling, openpyxl handles it
 
     # Data labels
     if show_data_labels:
@@ -369,7 +369,7 @@ def build_assumptions(wb):
     hide_gridlines(ws)
     mc = 7
     set_widths(ws, {"A": 34, "B": 14, "C": 14, "D": 14, "E": 14, "F": 14, "G": 20})
-    write_title(ws, "RUBAN — Model Assumptions", mc)
+    write_title(ws, "RUBAN - Model Assumptions", mc)
     write_year_headers(ws, 2, mc)
     ws.cell(row=2, column=7, value="Notes").font = F_HEADER
     ws.cell(row=2, column=7).fill = BG_HEADER
@@ -385,7 +385,7 @@ def build_assumptions(wb):
     # Revenue Drivers
     r = write_section(ws, r, "Revenue Drivers", mc)
     for ch in CHANNELS:
-        write_input_row(ws, r, f"{ch} — Active Customers", DATA["customers"][ch], fmt='#,##0')
+        write_input_row(ws, r, f"{ch} - Active Customers", DATA["customers"][ch], fmt='#,##0')
         note(ws, r, "Cumulative" if ch == "Website" else ("Opens Y2" if ch == "Retail" else ""))
         r += 1
     write_formula_row(ws, r, "Total Active Customers",
@@ -396,36 +396,36 @@ def build_assumptions(wb):
     r += 2
 
     for ch in CHANNELS:
-        write_input_row(ws, r, f"{ch} — New Customers", DATA["new_customers"][ch], fmt='#,##0')
+        write_input_row(ws, r, f"{ch} - New Customers", DATA["new_customers"][ch], fmt='#,##0')
         r += 1
     r += 1
 
     for ch in CHANNELS:
-        write_input_row(ws, r, f"{ch} — AOV (₹)", DATA["aov"][ch], fmt='₹#,##0')
+        write_input_row(ws, r, f"{ch} - AOV (₹)", DATA["aov"][ch], fmt='₹#,##0')
         r += 1
     write_input_row(ws, r, "Blended AOV (₹)", DATA["blended_aov"], fmt='₹#,##0')
     note(ws, r, "Weighted average")
     r += 2
 
     for ch in CHANNELS:
-        write_input_row(ws, r, f"{ch} — Orders/Cust/Year", DATA["orders_per_cust"][ch], fmt='0.0')
+        write_input_row(ws, r, f"{ch} - Orders/Cust/Year", DATA["orders_per_cust"][ch], fmt='0.0')
         r += 1
     r += 1
 
     # COGS
     r = write_section(ws, r, "Cost Structure", mc)
     for ch in CHANNELS:
-        write_input_row(ws, r, f"{ch} — COGS %", DATA["cogs_pct"][ch], fmt='0.0%')
+        write_input_row(ws, r, f"{ch} - COGS %", DATA["cogs_pct"][ch], fmt='0.0%')
         r += 1
     write_input_row(ws, r, "Gross Margin % (Blended)", DATA["gross_margin_pct"], fmt='0.0%')
     note(ws, r, "Target")
     r += 2
 
-    write_input_row(ws, r, "Return Rate — Website", DATA["return_rates"]["Website"], fmt='0.0%')
+    write_input_row(ws, r, "Return Rate - Website", DATA["return_rates"]["Website"], fmt='0.0%')
     r += 1
-    write_input_row(ws, r, "Return Rate — Retail", DATA["return_rates"]["Retail"], fmt='0.0%')
+    write_input_row(ws, r, "Return Rate - Retail", DATA["return_rates"]["Retail"], fmt='0.0%')
     r += 1
-    write_input_row(ws, r, "Return Rate — Marketplace", DATA["return_rates"]["Marketplace"], fmt='0.0%')
+    write_input_row(ws, r, "Return Rate - Marketplace", DATA["return_rates"]["Marketplace"], fmt='0.0%')
     r += 1
     write_input_row(ws, r, "Marketplace Commission %", DATA["mkt_commission"], fmt='0.0%')
     r += 2
@@ -469,7 +469,7 @@ def build_revenue(wb):
     hide_gridlines(ws)
     mc = 7
     set_widths(ws, {"A": 34, "B": 14, "C": 14, "D": 14, "E": 14, "F": 14, "G": 14})
-    write_title(ws, "RUBAN — Revenue Build-up (₹ Cr)", mc)
+    write_title(ws, "RUBAN - Revenue Build-up (₹ Cr)", mc)
     write_year_headers(ws, 2, mc)
     ws.cell(row=2, column=7, value="CAGR").font = F_HEADER
     ws.cell(row=2, column=7).fill = BG_HEADER
@@ -527,7 +527,7 @@ def build_revenue(wb):
     r += 2
 
     # Y1 Monthly
-    r = write_section(ws, r, "Year 1 — Monthly Detail (₹ Cr)", mc)
+    r = write_section(ws, r, "Year 1 - Monthly Detail (₹ Cr)", mc)
     months = DATA["y1_months"]
     for batch_start in [0, 6]:
         batch = months[batch_start:batch_start+6]
@@ -553,7 +553,7 @@ def build_pnl(wb):
     hide_gridlines(ws)
     mc = 6
     set_widths(ws, {"A": 36, "B": 14, "C": 14, "D": 14, "E": 14, "F": 14})
-    write_title(ws, "RUBAN — Profit & Loss Statement (₹ Cr)", mc)
+    write_title(ws, "RUBAN - Profit & Loss Statement (₹ Cr)", mc)
     write_year_headers(ws, 2, mc)
 
     r = 3
@@ -669,7 +669,7 @@ def build_balance_sheet(wb):
     hide_gridlines(ws)
     mc = 6
     set_widths(ws, {"A": 36, "B": 14, "C": 14, "D": 14, "E": 14, "F": 14})
-    write_title(ws, "RUBAN — Balance Sheet (₹ Cr)", mc)
+    write_title(ws, "RUBAN - Balance Sheet (₹ Cr)", mc)
     write_year_headers(ws, 2, mc)
 
     r = 3
@@ -740,7 +740,7 @@ def build_cash_flow(wb):
     hide_gridlines(ws)
     mc = 6
     set_widths(ws, {"A": 38, "B": 14, "C": 14, "D": 14, "E": 14, "F": 14})
-    write_title(ws, "RUBAN — Cash Flow Statement (₹ Cr)", mc)
+    write_title(ws, "RUBAN - Cash Flow Statement (₹ Cr)", mc)
     write_year_headers(ws, 2, mc)
 
     gp = [round(DATA["total_revenue"][i] * DATA["gross_margin_pct"][i], 2) for i in range(5)]
@@ -818,7 +818,7 @@ def build_unit_economics(wb):
     hide_gridlines(ws)
     mc = 6
     set_widths(ws, {"A": 36, "B": 14, "C": 14, "D": 14, "E": 14, "F": 14})
-    write_title(ws, "RUBAN — Unit Economics", mc)
+    write_title(ws, "RUBAN - Unit Economics", mc)
     write_year_headers(ws, 2, mc)
 
     r = 3
@@ -860,7 +860,7 @@ def build_fundraising(wb):
     hide_gridlines(ws)
     mc = 7
     set_widths(ws, {"A": 28, "B": 15, "C": 15, "D": 15, "E": 15, "F": 15, "G": 15})
-    write_title(ws, "RUBAN — Fundraising & Cap Table", mc)
+    write_title(ws, "RUBAN - Fundraising & Cap Table", mc)
 
     r = 3
     # Round Details
@@ -1017,7 +1017,7 @@ def build_dashboard(wb):
                 ws.cell(row=r, column=c).fill = fill
 
     def paint_card(r1, c1, r2, c2):
-        """White card — no border, clean."""
+        """White card - no border, clean."""
         card_fill = PatternFill("solid", fgColor=DASH_WHITE)
         for r in range(r1, r2+1):
             for c in range(c1, c2+1):
@@ -1233,7 +1233,7 @@ def build_dashboard(wb):
     section_tag(8, 11, 14, "Revenue Breakup")
 
     c2 = PieChart()
-    c2.title = "Revenue Mix — Year 5"
+    c2.title = "Revenue Mix - Year 5"
     c2.style = 2
     c2.width = 11
     c2.height = 10.5
@@ -1257,7 +1257,7 @@ def build_dashboard(wb):
     section_tag(8, 17, 21, "Profitability Ratios")
 
     c3 = BarChart()
-    c3.title = "Margins — Year 5"
+    c3.title = "Margins - Year 5"
     c3.style = 2
     c3.type = "bar"
     c3.barDir = "bar"
@@ -1276,7 +1276,7 @@ def build_dashboard(wb):
 
     # --- Deal Snapshot (Right Panel, rows 16-22) ---
     paint_card(16, 17, 22, 25)
-    section_tag(16, 17, 21, "Deal Snapshot — Series B")
+    section_tag(16, 17, 21, "Deal Snapshot - Series B")
 
     deal_items = [
         ("Funding Ask",    f"₹{DATA['rounds']['Series B']['amount']:.0f} Cr"),
@@ -1342,7 +1342,7 @@ def build_dashboard(wb):
     section_tag(24, 2, 5, "Customer Funnel")
 
     c4 = BarChart()
-    c4.title = "Funnel — Year 5"
+    c4.title = "Funnel - Year 5"
     c4.style = 2
     c4.width = 10.5
     c4.height = 10.5
@@ -1405,7 +1405,7 @@ def build_dashboard(wb):
 
     # --- Cap Table ---
     paint_card(31, 18, 38, 25)
-    section_tag(31, 18, 21, "Shareholding — Y5")
+    section_tag(31, 18, 21, "Shareholding - Y5")
 
     c7 = PieChart()
     c7.title = "Cap Table"

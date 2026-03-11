@@ -1,5 +1,5 @@
 /**
- * Ruban App — Orchestrator
+ * Ruban App - Orchestrator
  * File upload → parse → render
  */
 (function () {
