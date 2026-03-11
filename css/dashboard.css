@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════════
-   The VC Corner Dashboard — Landscape-first, zoom-safe (all px)
+   The VC Corner Dashboard - Landscape-first, zoom-safe (all px)
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
@@ -49,7 +49,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── Upload Screen — Split-Screen Hero ─── */
+/* ─── Upload Screen - Split-Screen Hero ─── */
 #upload-screen {
   display: flex;
   align-items: center;
@@ -477,7 +477,7 @@ body {
   background: var(--red-dim);
 }
 
-/* ─── Chart Grid — 3-column landscape ─── */
+/* ─── Chart Grid - 3-column landscape ─── */
 .chart-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1189,7 +1189,7 @@ body {
   height: 13px;
 }
 
-/* ─── No-animate — also cover new elements ─── */
+/* ─── No-animate - also cover new elements ─── */
 .no-animate .section-card,
 .no-animate .kpi-card,
 .no-animate .radar-scorecard-card,

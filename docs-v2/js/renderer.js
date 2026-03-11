@@ -1,5 +1,5 @@
 /**
- * The VC Corner Renderer — Dashboard DOM builder
+ * The VC Corner Renderer - Dashboard DOM builder
  * Category grouping, radar scorecard, YoY badges, accent stripes, PDF export
  */
 const Renderer = (() => {
@@ -25,7 +25,7 @@ const Renderer = (() => {
       dashboard.appendChild(buildKPIStrip(kpis));
     }
 
-    // Chart grid — grouped by category
+    // Chart grid - grouped by category
     const grid = document.createElement("div");
     grid.className = "chart-grid";
 
@@ -184,7 +184,7 @@ const Renderer = (() => {
     titleRow.className = "section-title";
     titleRow.textContent = config.title;
 
-    // YoY badge — compute Year4→Year5 delta of primary metric
+    // YoY badge - compute Year4→Year5 delta of primary metric
     const yoyBadge = computeYoYBadge(config, data);
     if (yoyBadge) {
       titleRow.appendChild(yoyBadge);
@@ -200,7 +200,7 @@ const Renderer = (() => {
       }
     }
 
-    // HTML legend (outside canvas — no overlap with y-axis)
+    // HTML legend (outside canvas - no overlap with y-axis)
     const isGauge = config.chartType === "gauge";
     if (datasets.length > 0 && config.chartType !== "pie" && !isGauge) {
       const legend = document.createElement("div");
@@ -307,7 +307,7 @@ const Renderer = (() => {
       scores.push(score !== null ? score : 0);
       metricRows.push({
         label: axis.label,
-        value: rawValue !== null ? formatRadarValue(rawValue, axis.format) : "—",
+        value: rawValue !== null ? formatRadarValue(rawValue, axis.format) : "-",
         hasData: score !== null
       });
     }

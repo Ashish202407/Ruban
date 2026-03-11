@@ -1,5 +1,5 @@
 /**
- * The VC Corner Charts — Chart.js factory + custom chart types
+ * The VC Corner Charts - Chart.js factory + custom chart types
  */
 const Charts = (() => {
 
@@ -36,7 +36,7 @@ const Charts = (() => {
   }
 
   /**
-   * Main dispatch — routes to the correct chart creator
+   * Main dispatch - routes to the correct chart creator
    */
   function create(canvas, type, labels, datasets, currencySymbol, yFormat) {
     switch (type) {
@@ -174,7 +174,7 @@ const Charts = (() => {
   }
 
   /**
-   * Waterfall chart — stacked bar with transparent bases
+   * Waterfall chart - stacked bar with transparent bases
    */
   function createWaterfall(canvas, labels, datasets, currencySymbol, yFormat) {
     const ctx = canvas.getContext("2d");
@@ -208,7 +208,7 @@ const Charts = (() => {
       const value = item.value;
       barLabels.push(label);
 
-      // Subtotals (Gross Profit, EBITDA, PAT) — start from 0
+      // Subtotals (Gross Profit, EBITDA, PAT) - start from 0
       if (label === "Gross Profit" || label === "EBITDA" || label.startsWith("PAT")) {
         baseValues.push(0);
         barValues.push(value);
@@ -216,7 +216,7 @@ const Charts = (() => {
         borderColors.push(green);
         runningTotal = value;
       }
-      // Cost items (negative) — float down from running total
+      // Cost items (negative) - float down from running total
       else if (label === "COGS" || label.includes("Expense")) {
         const absVal = Math.abs(value);
         baseValues.push(runningTotal - absVal);
@@ -225,7 +225,7 @@ const Charts = (() => {
         borderColors.push(red);
         runningTotal -= absVal;
       }
-      // Revenue — positive from 0
+      // Revenue - positive from 0
       else {
         baseValues.push(0);
         barValues.push(value);
@@ -309,7 +309,7 @@ const Charts = (() => {
   }
 
   /**
-   * Gauge chart — semicircular arc with needle (Canvas 2D)
+   * Gauge chart - semicircular arc with needle (Canvas 2D)
    */
   function createGauge(canvas, datasets) {
     const ctx = canvas.getContext("2d");
@@ -428,7 +428,7 @@ const Charts = (() => {
   }
 
   /**
-   * Stacked Area chart — line chart with fill and stacking
+   * Stacked Area chart - line chart with fill and stacking
    */
   function createStackedArea(canvas, labels, datasets, currencySymbol, yFormat) {
     const ctx = canvas.getContext("2d");
@@ -497,7 +497,7 @@ const Charts = (() => {
   }
 
   /**
-   * Combo Valuation — bar + stepped line with dual Y axes
+   * Combo Valuation - bar + stepped line with dual Y axes
    */
   function createComboValuation(canvas, labels, datasets, currencySymbol) {
     const ctx = canvas.getContext("2d");
@@ -556,7 +556,7 @@ const Charts = (() => {
   }
 
   /**
-   * Donut with center KPI text — Year 5 snapshot
+   * Donut with center KPI text - Year 5 snapshot
    */
   function createDonutKPI(canvas, labels, datasets, currencySymbol) {
     const ctx = canvas.getContext("2d");
@@ -617,7 +617,7 @@ const Charts = (() => {
   }
 
   /**
-   * Radar chart — spider chart with benchmark overlay
+   * Radar chart - spider chart with benchmark overlay
    */
   function createRadar(canvas, labels, datasets) {
     const ctx = canvas.getContext("2d");
