@@ -1,5 +1,5 @@
 /**
- * The VC Corner Theme - Theme/palette state, definitions, controls, re-render
+ * Dashboard Generator Theme - Theme/palette state, definitions, controls, re-render
  */
 const Theme = (() => {
   // ─── Palette Definitions ───

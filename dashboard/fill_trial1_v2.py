@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Fill VCCorner_Template_v2.xlsx with sample AI-SaaS data → Trial_1_v2_AI_SaaS.xlsx
+Fill DashGen_Template_v2.xlsx with sample AI-SaaS data → Trial_1_v2_AI_SaaS.xlsx
 """
 from openpyxl import load_workbook
 
-wb = load_workbook("VCCorner_Template_v2.xlsx")
+wb = load_workbook("DashGen_Template_v2.xlsx")
 
 # ─── Setup sheet ───
 ws = wb["Setup"]

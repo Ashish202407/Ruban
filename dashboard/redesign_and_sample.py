@@ -2,7 +2,7 @@
 """
 Excel Template Redesign + Sample AI Company Template
 =====================================================
-1. Loads VCCorner_Template_v2.xlsx → adds Guide sheet, improves formatting → saves
+1. Loads DashGen_Template_v2.xlsx → adds Guide sheet, improves formatting → saves
 2. Creates Trial_2_v2_AI_SaaS.xlsx from improved template with 14 active sections
 """
 from copy import copy
@@ -74,7 +74,7 @@ def add_guide_sheet(wb):
     # ── Title ──
     r = 2
     ws.merge_cells("B2:D2")
-    c = ws.cell(row=r, column=2, value="THE VC CORNER - Quick Start Guide")
+    c = ws.cell(row=r, column=2, value="DASHBOARD GENERATOR - Quick Start Guide")
     c.font = F_GUIDE_TITLE
     c.alignment = A_LEFT
 
@@ -98,12 +98,12 @@ def add_guide_sheet(wb):
          "Fill only the blue cells - these are your inputs. Gray cells with formulas "
          "will auto-calculate. Enter 5-year projections in columns B through F."),
         ("Step 4: Upload",
-         "Save this file, then go to thevcorner.com. Click 'Upload Template' and "
+         "Save this file, then go to the dashboard generator site. Click 'Upload Template' and "
          "select your saved .xlsx file. Everything runs in your browser - your data "
          "never leaves your device."),
         ("Step 5: Dashboard",
          "Your investor-ready dashboard generates instantly with charts, KPIs, "
-         "YoY growth badges, and a VC Readiness Radar. Export to PDF if needed."),
+         "YoY growth badges, and a Readiness Radar. Export to PDF if needed."),
     ]
 
     r = 5
@@ -163,7 +163,7 @@ def add_guide_sheet(wb):
         "Only fill sections you marked 'Yes' on the Checklist - everything else is ignored.",
         "Formulas auto-calculate totals, margins, ratios, and derived metrics.",
         "All values are in your chosen currency (set on Setup sheet). Use thousands (e.g. 1200 = $1.2M).",
-        "Upload your completed file at thevcorner.com - 100% private, browser-only processing.",
+        "Upload your completed file at the dashboard generator site - 100% private, browser-only processing.",
     ]
 
     for tip in tips:
@@ -506,8 +506,8 @@ if __name__ == "__main__":
     import os
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
-    template_in  = "VCCorner_Template_v2.xlsx"
-    template_out = "VCCorner_Template_v2.xlsx"
+    template_in  = "DashGen_Template_v2.xlsx"
+    template_out = "DashGen_Template_v2.xlsx"
     sample_out   = "Trial_2_v2_AI_SaaS.xlsx"
 
     # Step 1: Improve template (load, modify, save in-place)

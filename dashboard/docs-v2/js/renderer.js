@@ -1,5 +1,5 @@
 /**
- * The VC Corner Renderer - Dashboard DOM builder
+ * Dashboard Generator Renderer - Dashboard DOM builder
  * Category grouping, radar scorecard, YoY badges, accent stripes, PDF export
  */
 const Renderer = (() => {
@@ -340,7 +340,7 @@ const Renderer = (() => {
 
     const subtitle = document.createElement("div");
     subtitle.style.cssText = "font-size: 0.78rem; color: var(--text-tertiary); margin-bottom: 0.5rem;";
-    subtitle.textContent = "VC Readiness Score";
+    subtitle.textContent = "Readiness Score";
     info.appendChild(subtitle);
 
     const metricsList = document.createElement("div");
@@ -500,7 +500,7 @@ const Renderer = (() => {
         <path d="M8 1L2 4v4c0 3.5 2.5 6.4 6 7 3.5-.6 6-3.5 6-7V4L8 1z" stroke="currentColor" stroke-width="1.5" fill="none"/>
         <path d="M5.5 8l2 2 3-3.5" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
-      <span>Your data never leaves your device - The VC Corner</span>
+      <span>Your data never leaves your device - Dashboard Generator</span>
     `;
     return badge;
   }

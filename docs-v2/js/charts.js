@@ -1,5 +1,5 @@
 /**
- * The VC Corner Charts - Chart.js factory + custom chart types
+ * Dashboard Generator Charts - Chart.js factory + custom chart types
  */
 const Charts = (() => {
 

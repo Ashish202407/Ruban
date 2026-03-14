@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-The VC Corner Template Generator - Multi-Sector Fill-and-Generate Template
+Dashboard Generator Template Generator - Multi-Sector Fill-and-Generate Template
 ===========================================================================
-Generates VCCorner_Template_v2.xlsx with 5 sheets:
+Generates DashGen_Template_v2.xlsx with 5 sheets:
   1. Setup       - Company info + dropdowns
   2. Checklist   - 58 section toggles (Yes/No)
   3. AI-SaaS     - 20 empty input sections
@@ -14,7 +14,7 @@ Hidden columns on sector sheets:
   I = row type marker (I=input, F=formula, P=percent, T=total, H=header, S=section)
 
 Dependencies: pip install openpyxl
-Output:       VCCorner_Template_v2.xlsx
+Output:       DashGen_Template_v2.xlsx
 """
 
 from openpyxl import Workbook
@@ -327,7 +327,7 @@ def build_setup(wb):
 
     set_widths(ws, {"A": 28, "B": 30, "C": 5, "D": 5})
 
-    write_title_bar(ws, "THE VC CORNER - Company Setup", max_col)
+    write_title_bar(ws, "DASHBOARD GENERATOR - Company Setup", max_col)
 
     # Instruction
     ws.merge_cells("A2:B2")
@@ -414,7 +414,7 @@ def build_checklist(wb):
 
     set_widths(ws, {"A": 14, "B": 18, "C": 32, "D": 12, "E": 5})
 
-    write_title_bar(ws, "THE VC CORNER - Section Checklist", max_col)
+    write_title_bar(ws, "DASHBOARD GENERATOR - Section Checklist", max_col)
 
     # Column headers
     r = 2
@@ -521,7 +521,7 @@ def setup_sector_sheet(wb, name, title):
 # SHEET 3: AI-SaaS
 # ═══════════════════════════════════════════════════════════════════════════════
 def build_saas(wb):
-    ws, r = setup_sector_sheet(wb, "AI-SaaS", "THE VC CORNER - AI-SaaS Projections")
+    ws, r = setup_sector_sheet(wb, "AI-SaaS", "DASHBOARD GENERATOR - AI-SaaS Projections")
     mc = 7  # max visible col for section headers
 
     # ── 1. MRR & ARR Progression ──
@@ -851,7 +851,7 @@ def build_saas(wb):
 # SHEET 4: D2C
 # ═══════════════════════════════════════════════════════════════════════════════
 def build_d2c(wb):
-    ws, r = setup_sector_sheet(wb, "D2C", "THE VC CORNER - D2C Projections")
+    ws, r = setup_sector_sheet(wb, "D2C", "DASHBOARD GENERATOR - D2C Projections")
     mc = 7
     channels = ["Website", "Retail", "Marketplace"]
 
@@ -1238,7 +1238,7 @@ def build_d2c(wb):
 # SHEET 5: Healthcare
 # ═══════════════════════════════════════════════════════════════════════════════
 def build_healthcare(wb):
-    ws, r = setup_sector_sheet(wb, "Healthcare", "THE VC CORNER - Healthcare Projections")
+    ws, r = setup_sector_sheet(wb, "Healthcare", "DASHBOARD GENERATOR - Healthcare Projections")
     mc = 7
 
     # ── 1. Bed Occupancy & Utilization ──
@@ -1569,7 +1569,7 @@ def main():
     build_d2c(wb)
     build_healthcare(wb)
 
-    filename = "VCCorner_Template_v2.xlsx"
+    filename = "DashGen_Template_v2.xlsx"
     wb.save(filename)
     print(f"Generated {filename}")
 

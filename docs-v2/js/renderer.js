@@ -1,5 +1,5 @@
 /**
- * The VC Corner Renderer - Dashboard DOM builder
+ * Dashboard Generator Renderer - Dashboard DOM builder
  * Category grouping, radar scorecard, YoY badges, accent stripes, PDF export
  */
 const Renderer = (() => {
@@ -340,7 +340,7 @@ const Renderer = (() => {
 
     const subtitle = document.createElement("div");
     subtitle.style.cssText = "font-size: 0.78rem; color: var(--text-tertiary); margin-bottom: 0.5rem;";
-    subtitle.textContent = "VC Readiness Score";
+    subtitle.textContent = "Readiness Score";
     info.appendChild(subtitle);
 
     const metricsList = document.createElement("div");

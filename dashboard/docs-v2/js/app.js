@@ -1,5 +1,5 @@
 /**
- * The VC Corner App - Orchestrator
+ * Dashboard Generator App - Orchestrator
  * File upload → parse → render
  */
 (function () {

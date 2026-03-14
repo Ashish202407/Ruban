@@ -1,4 +1,4 @@
-# The VC Corner
+# Dashboard Generator
 
 **Fill an Excel template. Get an investor-grade dashboard.**
 
@@ -10,7 +10,7 @@ Upload your 5-year financial projections and instantly generate a polished, inte
 
 ## How It Works
 
-1. **Download** the `VCCorner_Template_v2.xlsx` from `dashboard/`
+1. **Download** the `DashGen_Template_v2.xlsx` from `dashboard/`
 2. **Fill** the Setup sheet (company name, sector, currency)
 3. **Toggle** sections on the Checklist sheet (Yes/No)
 4. **Enter** your numbers in the relevant sector sheet (blue cells = your inputs, black cells = auto-calculated formulas)
@@ -27,7 +27,7 @@ Upload your 5-year financial projections and instantly generate a polished, inte
 
 ## Dashboard Features
 
-- **VC Readiness Radar** - 6-axis spider chart scoring your startup vs benchmarks (per sector)
+- **Readiness Radar** - 6-axis spider chart scoring your startup vs benchmarks (per sector)
 - **Category Grouping** - sections organized by Revenue, Retention, Operations, etc. with sticky headers
 - **YoY Badges** - auto-computed Year 4→5 deltas on every section card
 - **Chart Types** - line, bar, stacked bar, doughnut, waterfall (P&L), gauge (Rule of 40), stacked area (cap table), combo (fundraising), radar
@@ -40,9 +40,9 @@ Upload your 5-year financial projections and instantly generate a polished, inte
 ```
 Ruban/
 ├── dashboard/
-│   ├── generate_template_v2.py    # Generates VCCorner_Template_v2.xlsx (58 sections)
+│   ├── generate_template_v2.py    # Generates DashGen_Template_v2.xlsx (58 sections)
 │   ├── fill_trial1_v2.py          # Sample AI-SaaS data filler (20 sections)
-│   ├── VCCorner_Template_v2.xlsx  # Blank template
+│   ├── DashGen_Template_v2.xlsx   # Blank template
 │   ├── Trial_1_v2_AI_SaaS.xlsx   # Pre-filled sample
 │   ├── generate_template.py      # v1 template generator (29 sections)
 │   ├── fill_trial1.py             # v1 sample filler
@@ -79,7 +79,7 @@ All processing happens in your browser. No data is uploaded to any server. The E
 ```bash
 cd dashboard
 pip install openpyxl
-python3 generate_template_v2.py   # → VCCorner_Template_v2.xlsx
+python3 generate_template_v2.py   # → DashGen_Template_v2.xlsx
 ```
 
 ## Generating a Sample Filled File

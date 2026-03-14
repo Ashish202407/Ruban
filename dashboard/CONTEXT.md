@@ -1,8 +1,8 @@
-# The VC Corner - Project Context
+# Dashboard Generator - Project Context
 
-## What is The VC Corner?
+## What is Dashboard Generator?
 
-The VC Corner is a **100% client-side investor dashboard generator**. A founder uploads their financial Excel template (`.xlsx`) in the browser and instantly gets a premium, investor-grade dashboard - no server, no data leaves the device.
+Dashboard Generator is a **100% client-side investor dashboard generator**. A founder uploads their financial Excel template (`.xlsx`) in the browser and instantly gets a premium, investor-grade dashboard - no server, no data leaves the device.
 
 **Live site:** https://ashish202407.github.io/Ruban/
 
@@ -10,7 +10,7 @@ The VC Corner is a **100% client-side investor dashboard generator**. A founder 
 
 ## How It Works
 
-1. **Template** - An Excel workbook (`VCCorner_Template_v2.xlsx`) with:
+1. **Template** - An Excel workbook (`DashGen_Template_v2.xlsx`) with:
    - **Setup** sheet: company name, business type (AI-SaaS / D2C / Healthcare), currency, FY start
    - **Checklist** sheet: toggle sections on/off (column D = "Yes"/"No", column E = section ID). Original 29 sections default "Yes", 29 new sections default "No"
    - **Sector sheets** (AI-SaaS, D2C, Healthcare): financial data with 5-year projections, section anchors in column H, row types in column I
@@ -19,7 +19,7 @@ The VC Corner is a **100% client-side investor dashboard generator**. A founder 
 
 3. **Parse** - `parser.js` reads Setup, Checklist, and sector data using SheetJS. Includes a client-side formula evaluator for SUM, IF, and arithmetic (handles openpyxl files that don't cache formula results)
 
-4. **Render** - `renderer.js` builds the DOM: header, VC Readiness Radar scorecard, KPI strip (up to 8 cards), chart grid (3-col landscape) grouped by category with sticky headers, YoY badges, HTML legends, data tables, and privacy badge
+4. **Render** - `renderer.js` builds the DOM: header, Readiness Radar scorecard, KPI strip (up to 8 cards), chart grid (3-col landscape) grouped by category with sticky headers, YoY badges, HTML legends, data tables, and privacy badge
 
 5. **Charts** - `charts.js` creates Chart.js instances + custom Canvas 2D charts (waterfall, gauge, radar, stacked area, combo, donut) with dynamic color palettes and theme-aware styling
 
@@ -80,13 +80,13 @@ No build step, no bundler, no frameworks - plain vanilla JS modules as IIFEs on 
 | Stacked Area | Chart.js line with fill + stacking | Fundraising & Cap Table (SaaS) |
 | Combo | Chart.js bar + stepped line, dual Y axes | Fundraising valuations |
 | Donut KPI | Chart.js doughnut + center text plugin | Revenue by Plan snapshot |
-| Radar | Chart.js radar + benchmark overlay | VC Readiness Scorecard |
+| Radar | Chart.js radar + benchmark overlay | Readiness Scorecard |
 
 ---
 
 ## Dashboard Features
 
-- **VC Readiness Radar** - 6-axis spider chart with benchmark overlay, per-sector axis definitions, overall score /100
+- **Readiness Radar** - 6-axis spider chart with benchmark overlay, per-sector axis definitions, overall score /100
 - **Category Grouping** - sections sorted by: Revenue, Retention, Customers, Unit Economics, Operations, Efficiency, Marketing, Cost, Quality, Financials, Fundraising - with sticky headers
 - **YoY Badges** - auto-computed Year 4→Year 5 delta on every section card title
 - **Accent Stripes** - left border color per card via `--section-accent` CSS custom property
@@ -125,6 +125,7 @@ No build step, no bundler, no frameworks - plain vanilla JS modules as IIFEs on 
 
 - **Template generator:** `generate_template_v2.py` - creates the Excel template with 58 sections across 3 sectors
 - **Trial data filler:** `fill_trial1_v2.py` - populates template with sample AI-SaaS data (all 20 sections) for testing
+- **User guide generator:** `generate_user_guide.py` (project root) - generates `DashGen_UserGuide.pdf`, a branded 30-page user guide covering all 3 sectors, 58 sections, template filling instructions, dashboard features, chart types, troubleshooting, and FAQ. Uses fpdf2 (Python). White background, black/dark grey text, Dashboard Generator branding.
 - **v1 generators:** `generate_template.py` and `fill_trial1.py` still available for original 29-section template
 - **CDN dependencies:** SheetJS (xlsx@0.18.5), Chart.js (4.4.1)
 - **Fonts:** DM Sans (UI), JetBrains Mono (data/numbers)
@@ -138,7 +139,7 @@ No build step, no bundler, no frameworks - plain vanilla JS modules as IIFEs on 
 |------|-------------|
 | `671a65a` | Fix zoom/layout for landscape at 100% - compact dashboard |
 | `8c5df9f` | Fix empty gauge chart + update README for v2 |
-| `29292cb` | The VC Corner v2: rebrand + 29 new sections, new chart types, category grouping, radar scorecard |
+| `29292cb` | Dashboard Generator v2: rebrand + 29 new sections, new chart types, category grouping, radar scorecard |
 | `891df2c` | Add theme + color palette system with light/dark toggle |
 | `9212933` | Move chart legends to HTML outside canvas to fix overlap |
 | `7b6059c` | Fix $0 KPIs: formula cells now evaluate correctly |

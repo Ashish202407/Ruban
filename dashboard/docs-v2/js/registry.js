@@ -1,5 +1,5 @@
 /**
- * The VC Corner Section Registry
+ * Dashboard Generator Section Registry
  * Maps 58 section IDs → chart types, KPI rules, display config
  *
  * yFormat: "currency" (default) | "percent" | "number" | "ratio"
