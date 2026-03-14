@@ -4,7 +4,7 @@
 
 Upload your 5-year financial projections and instantly generate a polished, interactive dashboard - 100% client-side, your data never leaves your browser.
 
-**[Try it live →](https://thevccorner.github.io/dashboard_generator/)**
+**[Try it live →](https://ashish202407.github.io/Ruban/)**
 
 ---
 
