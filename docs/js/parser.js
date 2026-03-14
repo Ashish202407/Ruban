@@ -1,5 +1,5 @@
 /**
- * Ruban Parser - SheetJS-based Excel parser
+ * The VC Corner Parser - SheetJS-based Excel parser
  * Reads Setup, Checklist, and sector data via hidden column anchors.
  * Includes client-side formula evaluation for when cached results are missing
  * (e.g. files saved by openpyxl which doesn't evaluate formulas).
